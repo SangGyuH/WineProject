@@ -40,6 +40,7 @@ CREATE TABLE tb_notice
 (
 	notice_id int NOT NULL AUTO_INCREMENT,
 	user_uid int NOT NULL,
+	notice_title longtext NOT NULL,
 	notice_content longtext NOT NULL,
 	notice_regdate datetime DEFAULT now(),
 	PRIMARY KEY (notice_id)
@@ -112,6 +113,7 @@ CREATE TABLE tb_write
 (
 	write_id int NOT NULL AUTO_INCREMENT,
 	user_uid int NOT NULL,
+	write_title longtext NOT NULL,
 	write_content longtext NOT NULL,
 	write_regdate datetime DEFAULT now(),
 	PRIMARY KEY (write_id)
