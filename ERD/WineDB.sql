@@ -4,7 +4,7 @@ SET SESSION FOREIGN_KEY_CHECKS=0;
 
 DROP TABLE IF EXISTS tb_user_authorities;
 DROP TABLE IF EXISTS tb_authority;
-DROP TABLE IF EXISTS tb_book;
+DROP TABLE IF EXISTS tb_buy;
 DROP TABLE IF EXISTS tb_notice_file;
 DROP TABLE IF EXISTS tb_notice;
 DROP TABLE IF EXISTS tb_point;
@@ -28,11 +28,12 @@ CREATE TABLE tb_authority
 );
 
 
-CREATE TABLE tb_book
+CREATE TABLE tb_buy
 (
 	user_uid int NOT NULL,
 	wine_id int NOT NULL,
-	book_regdate datetime DEFAULT now()
+	buy_quantity int NOT NULL DEFAULT 1,
+	buy_regdate datetime DEFAULT now()
 );
 
 
@@ -40,7 +41,7 @@ CREATE TABLE tb_notice
 (
 	notice_id int NOT NULL AUTO_INCREMENT,
 	user_uid int NOT NULL,
-	notice_title longtext NOT NULL,
+	notice_title varchar(100) NOT NULL,
 	notice_content longtext NOT NULL,
 	notice_regdate datetime DEFAULT now(),
 	PRIMARY KEY (notice_id)
@@ -72,6 +73,11 @@ CREATE TABLE tb_user
 	user_id varchar(100) NOT NULL,
 	user_pw varchar(100) NOT NULL,
 	user_name varbinary(50) NOT NULL,
+	user_email varchar(30),
+	user_phone varchar(13),
+	user_addr1 varchar(50) NOT NULL,
+	user_addr2 varchar(50) NOT NULL,
+	user_addr3 varchar(6) NOT NULL,
 	PRIMARY KEY (user_uid),
 	UNIQUE (user_id)
 );
@@ -91,8 +97,10 @@ CREATE TABLE tb_wine
 	wine_winery varchar(50) NOT NULL,
 	wine_name varchar(50) NOT NULL,
 	wine_location varchar(30) NOT NULL,
-	wine_img longtext,
+	wine_img varchar(70),
 	wine_regdate datetime DEFAULT now(),
+	wine_price int NOT NULL,
+	wine_type varchar(30),
 	PRIMARY KEY (wine_id)
 );
 
@@ -160,7 +168,7 @@ ALTER TABLE tb_notice_file
 ;
 
 
-ALTER TABLE tb_book
+ALTER TABLE tb_buy
 	ADD FOREIGN KEY (user_uid)
 	REFERENCES tb_user (user_uid)
 	ON UPDATE RESTRICT
@@ -216,7 +224,7 @@ ALTER TABLE tb_write_review
 ;
 
 
-ALTER TABLE tb_book
+ALTER TABLE tb_buy
 	ADD FOREIGN KEY (wine_id)
 	REFERENCES tb_wine (wine_id)
 	ON UPDATE RESTRICT
