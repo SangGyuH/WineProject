@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.spring.repository.NoticeFileRepository">
+    <insert id="insert" flushCache="true" parameterType="arrayList">
+        INSERT INTO tb_notice_file (source, file, notice_id)
+        VALUES
+            <foreach collection="param1" item="e">
+                (#{e.source}, #{e.file}, #{e.param2})
+            </foreach>
+    </insert>
+
+    <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.NoticeFile">
+        INSERT INTO tb_notice_file (source, file, notice_id)
+        VALUES (#{source}, #{file}, #{write_id})
+    </insert>
+
+    <sql id="SELECT_FILE">
+        SELECT notice_file_id, source, file, notice_id
+        FROM tb_notice_file
+    </sql>
+
+    <select id="findByNoticeId" resultType="com.lec.spring.domain.NoticeFile">
+        <include refid="SELECT_FILE"/>
+        WHERE notice_id = #{param1}
+        ORDER BY notice_file_id ASC;
+    </select>
+
+    <select id="findById" resultType="com.lec.spring.domain.NoticeFile">
+        <include refid="SELECT_FILE"/>
+        WHERE notice_file_id = #{notice_file_id}
+    </select>
+
+    <select id="findByIds" resultType="com.lec.spring.domain.NoticeFile" parameterType="java.util.ArrayList">
+        <include refid="SELECT_FILE"/>
+        WHERE notice_file_id IN
+        <foreach collection="array" item="e" separator="," open="(" close=")">
+            #{e}
+        </foreach>
+        ORDER BY notice_file_id ASC
+    </select>
+
+    <delete id="deleteByIds" flushCache="true" parameterType="java.util.ArrayList">
+        DELETE FROM tb_notice_file
+        WHERE notice_file_id IN (<foreach collection="array" item="item" separator=",">#{item}</foreach>)
+    </delete>
+
+    <delete id="delete" flushCache="true">
+        DELETE FROM tb_notice_file WHERE notice_file_id = #{notice_file_id}
+    </delete>
+
+</mapper>

@@ -1,4 +1,4 @@
 package com.lec.spring.repository;
 
-public class AuthorityRepository {
+public interface AuthorityRepository {
 }

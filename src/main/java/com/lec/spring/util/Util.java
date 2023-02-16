@@ -1,5 +1,7 @@
 package com.lec.spring.util;
 
+import com.lec.spring.config.PrincipalDetails;
+import com.lec.spring.domain.User;
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -22,11 +24,11 @@ public class Util {
     public static HttpSession getSession() {
         return getRequest().getSession();
     }
-//    public static User getLoggedUser(){
-//        PrincipalDetails userDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        User user = userDetails.getUser();
-//        return user;  //현재 로그인 한 사용자
-//    }
+    public static User getLoggedUser(){
+        PrincipalDetails userDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDetails.getUser();
+        return user;  //현재 로그인 한 사용자
+    }
 
 
     // 첨부파일 정보 출력하기
