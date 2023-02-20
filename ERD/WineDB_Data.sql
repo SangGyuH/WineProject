@@ -21,18 +21,19 @@ VALUES
 -- 사용자 권한 추가
 INSERT INTO tb_user_authorities
 VALUES
-    (1, 1),
-    (1, 4),
+	(1, 1),
+    (4, 1),
     (2, 2),
-    (3, 2),
-    (4, 3),
-    (5, 3),
-    (6, 4),
-    (7, 4)
+    (2, 3),
+    (3, 4),
+    (3, 5),
+    (4, 6),
+    (4, 7)
     ;
+   
 
 -- 샘플 글
-INSERT INTO t5_write (user_uid, write_title, write_content)
+INSERT INTO tb_write (user_uid, write_title, write_content)
 VALUES
     (2, '김사과표 제목', '김사과씨가 적은 내용입니다.'),
     (3, '반하나표 제목', '반하나씨가 적은 내용입니다.'),
@@ -56,3 +57,4 @@ VALUES
     (1, '샘플용 공지사항6', '샘플용 공지사항의 상세 내용입니다.'),
     (1, '샘플용 공지사항7', '샘플용 공지사항의 상세 내용입니다.')
     ;
+    
