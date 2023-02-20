@@ -22,9 +22,9 @@ DROP TABLE IF EXISTS tb_wine;
 
 CREATE TABLE tb_authority
 (
-	user_uid int NOT NULL,
+	authority_id int NOT NULL AUTO_INCREMENT,
 	authority varbinary(30) NOT NULL,
-	UNIQUE (user_uid)
+	PRIMARY KEY (authority_id)
 );
 
 
@@ -85,9 +85,8 @@ CREATE TABLE tb_user
 
 CREATE TABLE tb_user_authorities
 (
-	user_uid int NOT NULL,
-	user_authority_id int NOT NULL,
-	UNIQUE (user_authority_id)
+	authority_id int NOT NULL,
+	user_uid int NOT NULL
 );
 
 
@@ -101,6 +100,7 @@ CREATE TABLE tb_wine
 	wine_regdate datetime DEFAULT now(),
 	wine_price int NOT NULL,
 	wine_type varchar(30),
+	wine_count int DEFAULT 0,
 	PRIMARY KEY (wine_id)
 );
 
@@ -153,8 +153,8 @@ CREATE TABLE tb_write_review
 /* Create Foreign Keys */
 
 ALTER TABLE tb_user_authorities
-	ADD FOREIGN KEY (user_authority_id)
-	REFERENCES tb_authority (user_uid)
+	ADD FOREIGN KEY (authority_id)
+	REFERENCES tb_authority (authority_id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;

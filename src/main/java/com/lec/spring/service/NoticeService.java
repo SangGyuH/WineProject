@@ -5,6 +5,7 @@ import com.lec.spring.domain.NoticeFile;
 import com.lec.spring.domain.User;
 import com.lec.spring.repository.NoticeFileRepository;
 import com.lec.spring.repository.NoticeRepository;
+import com.lec.spring.repository.UserRepository;
 import com.lec.spring.util.Util;
 
 import jakarta.servlet.http.HttpSession;
@@ -47,7 +48,7 @@ public class NoticeService {
 
     public int write(Notice notice, Map<String, MultipartFile> files) {
         User user = Util.getLoggedUser();       //현재 로그인한 사용자
-        user = userRepository.findById(user.getUser_id());      //현재 로그인한 사용자 전체 정보 추출
+        user = userRepository.findById(user.getUser_uid());      //현재 로그인한 사용자 전체 정보 추출
         notice.setUser(user);       //사용자 설정
         int result = noticeRepository.save(notice);
         addFiles(files, notice.getNotice_id());

@@ -34,17 +34,17 @@ public class PrincipalDetails implements UserDetails {
         System.out.println("getAuthority() 호출");
 
         Collection<GrantedAuthority> collect = new ArrayList<>();
-        List<Authority> list = userService.selectAuthorityById(user.getId()); //BD에서 user의 권한(들) 읽어오기
+        List<Authority> list = userService.selectAuthorityById(user.getUser_uid()); //BD에서 user의 권한(들) 읽어오기
 
         for(Authority auth: list){
             collect.add(new GrantedAuthority() {
                 @Override
                 public String getAuthority() {
-                    return auth.getName();
+                    return auth.getAuthority();
                 }
                 @Override
                 public String toString(){
-                    return auth.getName();
+                    return auth.getAuthority();
                 }
             });
         }
@@ -54,12 +54,12 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return user.getUser_pw();
     }
 
     @Override
     public String getUsername() {
-        return user.getUsername();
+        return user.getUser_name();
     }
 
     // 계정이 만료되었는지?
