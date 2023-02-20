@@ -25,18 +25,14 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
             long seconds = loginTime.until( logoutTime, ChronoUnit.SECONDS );   //loginTime 부터 logoutTime 까지를 초단위로 세서 반환
             System.out.println("사용시간: " + seconds + " 초");
         }
-        request.getSession().invalidate();   // 그리고 invalidate
+        request.getSession().invalidate();   // 그리고 invalidate(이제 세션은 필요없으니 수동으로 날리기)
 
-        String redirectUrl = "/user/login?logoutHandler";
-        // ret_url  이 있는 경우 logout 하고 해당  url 로 redirect  (※ Security TagLibs 예제)
+
+        String redirectUrl = "/user/login?logoutHandler";   //로그아웃 직후 이동할 url
+        // ret_url  이 있는 경우 logout 하고 해당  url 로 redirect
         if(request.getParameter("ret_url") != null) {
             redirectUrl = request.getParameter("ret_url");
         }
         response.sendRedirect(redirectUrl);
-
-
-
-
-
     }
 }
