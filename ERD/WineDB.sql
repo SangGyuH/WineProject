@@ -263,5 +263,9 @@ ALTER TABLE tb_write_review
 	ON DELETE RESTRICT
 ;
 
+/* tb_wine 수정_최지수 */
+ALTER TABLE tb_wine ADD COLUMN wine_count int(3) NOT NULL;
+ALTER TABLE tb_wine ADD COLUMN wine_serialkey int(4) NOT NULL;
+
 
 
