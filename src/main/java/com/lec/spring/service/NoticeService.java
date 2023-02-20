@@ -11,6 +11,7 @@ import com.lec.spring.util.Util;
 import jakarta.servlet.http.HttpSession;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class NoticeService {
 
     public static final Integer WRITE_PAGES = 10;  // 기본 write_pages 값. 한 [페이징] 당 몇개의 페이지가 표시되나

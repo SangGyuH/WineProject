@@ -5,9 +5,6 @@ INSERT INTO tb_authority (authority) VALUES
     ('ROLE_ADMIN'), ('ROLE_SILVER'), ('ROLE_GOLD'), ('ROLE_DIAMOND')
 ;
    
-insert into tb_authority (authority_id, authority) values
-	(1, 'ROLE_ADMIN'), (2, 'ROLE_SILVER'), (3, 'ROLE_GOLD'), (4, 'ROLE_DIAMOND')
-;
 
 -- 샘플 사용자
 INSERT INTO tb_user (user_id, user_pw, user_name, user_email, user_phone, user_addr1, user_addr2, user_addr3)

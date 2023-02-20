@@ -43,9 +43,10 @@
         <collection property="user" resultMap="mapNotice"/>
     </resultMap>
 
-    <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Notice" useGeneratedKeys="true" keyColumn="notice_id" keyProperty="notice_id">
-        INSERT INTO tb_notice (user, notice_title, notice_content)
-        VALUES (#{user}, #{notice_title}, #{notice_content})
+    <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Notice"
+            useGeneratedKeys="true" keyColumn="notice_id" keyProperty="notice_id">
+        INSERT INTO tb_notice (user_uid, notice_title, notice_content)
+        VALUES (#{user.user_uid}, #{notice_title}, #{notice_content})
     </insert>
 
     <select id="findById" resultMap="mapNotice">

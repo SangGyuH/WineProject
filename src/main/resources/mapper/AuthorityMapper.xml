@@ -10,7 +10,7 @@
         authority_id "authority_id",
         authority "authority"
         FROM tb_authority
-        WHERE authority = #{authority}
+        WHERE authority = #{param1}
     </select>
 
     <select id="findByUser"
@@ -22,15 +22,8 @@
     </select>
 
     <insert id="addAuthority" flushCache="true">
-        INSERT INTO tb_user_authorities(user_uid, authority_id)
-        VALUES(#{param1}, #{param2})
+        INSERT INTO tb_user_authorities
+        VALUES (#{authority_id}, #{user_uid})
     </insert>
-
-
-
-
-
-
-
 
 </mapper>

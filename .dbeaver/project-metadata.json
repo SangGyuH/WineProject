@@ -1,1 +1,1 @@
-{"resources":{"ERD/WineDB.sql":{"default-datasource":"mysql8-1865e597059-46f703b53d2645df","default-catalog":"vvinedb"}}}
+{"resources":{"ERD/WineDB.sql":{"default-datasource":"mysql8-1865e597059-46f703b53d2645df","default-catalog":"vvinedb"},"ERD/WineDB_Data.sql":{"default-datasource":"mysql8-1865e597059-46f703b53d2645df","default-catalog":"vvinedb"},"ERD/WineDB_test.sql":{"default-datasource":"mysql8-1865e597059-46f703b53d2645df","default-catalog":"vvinedb"}}}
