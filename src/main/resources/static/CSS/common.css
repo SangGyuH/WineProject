@@ -1,0 +1,33 @@
+body {margin-bottom:400px}
+
+h2 {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 15px;
+}
+
+a:hover {
+    display: block;
+    color: white;
+}
+
+#mySpan {
+    cursor:pointer;
+}
+
+#mySpan:hover {
+    text-decoration: underline;
+}
+
+input[type="file"] {
+    opacity: 0;
+}
+
+#preview {
+    height: 50px;
+}

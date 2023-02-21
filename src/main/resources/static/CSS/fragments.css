@@ -1,0 +1,159 @@
+/* 헤더 */
+
+/* 헤더 로고 */
+.logo_box{
+    height: 200px;
+    width: auto;
+    position:relative;
+    display:flex;
+    justify-content: space-between;
+}
+
+.logo_box > .logo {
+    height: auto;
+    width: 30%;
+    font-size: 3rem;
+    margin: auto 0;
+}
+.logo_box > .logo a{
+    display:flex;
+}
+.logo_box > .logo img {
+    height: 110px;
+    width: 110px;
+}
+
+.logo_box > .logo .logo_title {
+    margin: auto 0;
+}
+
+.logo_box > .login_box {
+    height : auto;
+    width: 20%;
+    position:absolute;
+    bottom:0;
+    right:0;
+}
+
+.logo_box > .login_box > div{
+    width: 100%;
+    height: auto;
+    font-size: 1.7rem;
+    text-align:right;
+}
+
+.logo_box > .login_box > div img{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+}
+
+.logo_box .login{
+    align-content: center;
+    margin: auto 0;
+}
+
+.logo_box .logout{
+    text-align : right;
+    margin: auto 0;
+}
+
+/* 헤더메뉴 */
+.menu_bar {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.menu_bar > .menu{
+    width: 10%;
+    height: 100%;
+}
+
+.menu_bar button{
+    width:100%;
+    text-align: right;
+}
+
+
+/* 푸터 */
+.footer {
+    width: 100%;
+    height: 330px;
+    margin-top: 130px;
+}
+
+.footer > .footer_box {
+    display:flex;
+}
+
+.footer > .footer_box > .in_footer{
+    position:relative;
+}
+
+.footer > .footer_box > .main{
+    width: 25%;
+}
+.footer > .footer_box > .main div{
+    padding: 5%;
+}
+.footer > .footer_box > .main > .sns_text{
+    padding-top: 30%;
+    font-size : 1.2rem;
+}
+.footer > .footer_box > .main > .sns_text_tel{
+    font-size: 1.5rem;
+}
+
+.footer > .footer_box > .info{
+    width:45%;
+    font-size: 1.1rem;
+    line-height: 2.5;
+}
+
+.footer > .footer_box > .sns{
+    width: 30%;
+}
+.footer > .footer_box > .sns div{
+    padding : 5%;
+}
+.footer > .footer_box > .sns > .title{
+    font-size: 1.2rem;
+}
+.footer > .footer_box > .sns .sns_box{
+    display : flex;
+    justify-content : space-evenly;
+    padding-top:0;
+}
+.footer > .footer_box > .sns .sns_box img{
+    height: 35px;
+    width: 35px;
+}
+
+
+/* 사이드바 */
+.sidebar{
+    height : 150px;
+    width: 100px;
+    position: fixed;
+    bottom: 1%;
+    right: 10%;
+}
+
+.sidebar .homebtn{
+    position: absolute;
+    right:0;
+}
+
+.sidebar .pageup{
+    position:absolute;
+    right:0;
+    top: 52px;
+}
+.sidebar .pageup .top:hover{
+    cursor:pointer;
+}
+
+

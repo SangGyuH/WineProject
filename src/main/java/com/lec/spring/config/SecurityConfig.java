@@ -26,10 +26,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())                   //CSRF 비활성화
                 // ↓ 조율해야함
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("").authenticated()                                       //해당 페이지들은 로그인(인증)이 되어있어야한다
-                        .requestMatchers("").hasAnyRole("ADMIN", "MEMBER_SILVER", ",MEMBER_GOLD", "MEMBER_DIAMOND")//해당 페이지들은 로그인(인증) 및 권한(ADMIN, SILVER, GOLD, DIAMOND)이 필요하다.
-                        .requestMatchers("").hasAnyRole("ADMIN")                             //해당 페이지들은 관리자만 접속 가능하다
-                        .anyRequest().permitAll()                                                          //위의 페이지들 외엔 로그인(인증) / (권한) 이 없어도 접속 가능하다.
+                        .requestMatchers("/board/list/**","/board/write/**").authenticated()                                                        //해당 페이지들은 로그인(인증)이 되어있어야한다
+                        .requestMatchers("/board/write/**", "/board/update/**", "/board/delete/**", "/board/detail/**").hasAnyRole("ADMIN", "SILVER", "GOLD", "DIAMOND")                   //해당 페이지들은 로그인(인증) 및 권한(ADMIN, SILVER, GOLD, DIAMOND)이 필요하다.
+                        //.requestMatchers("").hasAnyRole("ADMIN")                                                //해당 페이지들은 관리자만 접속 가능하다
+                        .anyRequest().permitAll()                                                                           //위의 페이지들 외엔 로그인(인증) / (권한) 이 없어도 접속 가능하다.
+
                 )
 
                 .formLogin(form -> form

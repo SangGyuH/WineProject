@@ -29,7 +29,7 @@ public class WriteReview {
 
     @JsonDeserialize(using= LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
-    //TODO  @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul") 을 default로 남겨두었으나 pattern 값에는 원하는 값으로 넣은 후 '//TODO' 부분은 지워주세요
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="Asia/Seoul")
     @JsonProperty("wr_regdate")
     private LocalDateTime wr_regdate;           //댓글 등록 일자
 

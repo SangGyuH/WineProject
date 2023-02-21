@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.spring.repository.WriteRepository">
+
+    <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Write"
+            useGeneratedKeys="true" keyColumn="write_id" keyProperty="write_id">
+        INSERT INTO tb_write
+            (write_title, write_content, user_uid)
+        VALUES
+            (#{write_title}, #{write_content}, #{user.user_uid})
+    </insert>
+
+
+    <!-- 반복해서 사용될 쿼리문은 sql 태그로 정의 include 태그로 가져다 쓸수 있다 -->
+    <sql id="SELECT_BASE">
+        SELECT
+            w.write_id,
+            w.write_title,
+            w.write_content,
+            w.write_regdate,
+            u.user_uid,
+            u.user_id,
+            u.user_name
+        FROM
+            tb_write w, tb_user u
+        WHERE
+            w.user_uid = u.user_uid
+    </sql>
+
+    <!-- JOIN 문에서 여러 테이블의 데이터 매핑 받기 -->
+    <resultMap id="mapUser" type="com.lec.spring.domain.User">
+        <result column="user_uid" property="user_uid"/>
+        <result column="user_id" property="user_id"/>
+        <result column="user_pw" property="user_pw"/>
+        <result column="user_name" property="user_name"/>
+    </resultMap>
+
+    <resultMap id="mapWrite" type="com.lec.spring.domain.Write">
+        <result column="write_id" property="write_id"/>
+        <result column="write_title" property="write_title"/>
+        <result column="write_content" property="write_content"/>
+        <result column="write_regdate" property="write_regdate"/>
+        <collection property="user" resultMap="mapUser"/>
+    </resultMap>
+
+    <select id="findById" resultMap="mapWrite">
+        <include refid="SELECT_BASE"/>
+            AND w.write_id = #{write_id}
+        ORDER BY w.write_id DESC
+    </select>
+
+    <select id="findAll" resultMap="mapWrite">
+        <include refid="SELECT_BASE"/>
+        ORDER BY w.write_id DESC
+    </select>
+
+    <update id="update" flushCache="true"
+        parameterType="com.lec.spring.domain.Write">
+        UPDATE tb_write
+        SET write_title = #{write_title}, write_content = #{write_content}
+        WHERE write_id = #{write_id}
+    </update>
+
+    <delete id="delete" flushCache="true"
+        parameterType="com.lec.spring.domain.Write">
+        DELETE FROM tb_write WHERE write_id = #{write_id}
+    </delete>
+
+
+
+    <select id="countAll" resultType="int">
+        SELECT COUNT(*) FROM tb_write
+    </select>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

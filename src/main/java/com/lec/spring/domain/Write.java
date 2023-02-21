@@ -13,7 +13,7 @@ import java.util.List;
 public class Write {
     //게시글 정보를 담는 VO 파일.
 
-    private Long id;                        //게시글 식별번호(PK)
+    private Long write_id;                        //게시글 식별번호(PK)
     private String write_title;             //게시글 제목
     private String write_content;           //게시글 내용
     private LocalDateTime write_regdate;    //게시글 등록일

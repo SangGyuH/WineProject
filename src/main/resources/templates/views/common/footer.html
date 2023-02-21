@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="footer" class="footer info">
+
+    <div class="cross_line cross_line_footer"></div>
+
+    <div class="footer_box">
+        <div class="main in_footer">
+            <div class="sns_text title">고객만족센터</div>
+            <div class="sns_text_tel">TEL : 02-538-0021</div>
+            <div class="privacy_policy">
+                <a th:href="@{/home/privacy_policy}" target="_blank"><i>개인정보처리방침</i></a>
+            </div>
+        </div>
+
+        <div class="info in_footer">
+            <div class="addr">서울특별시 강남구 테헤란로 146 현익빌딩 3,4층	</div>
+            <div class="business_num">사업자번호 : 815-88-00171</div>
+            <div class="ceo">대표자 : 정해승</div>
+            <div class="writer">참고자 : 정준홍</div>
+            <div class="fax">Fax : 02-2135-2949</div>
+            <div class="copyright">copyright ⓒ 2015 KOREA INFORMATION TECHNOLOGY ACADEMY. ALL RIGHTS RESERVED</div>
+        </div>
+
+        <div class="sns in_footer">
+            <div class="title">Follow Us</div>
+            <div class="sns_box">
+                <a href="#"><img src="/img/sns_instagram.png" alt="Instagram Icon"></a>
+                <a href="#"><img src="/img/sns_facebook.png" alt="Facebook Icon"></a>
+                <a href="#"><img src="/img/sns_youtube.png" alt="Youtube Icon"></a>
+                <a href="#"><img src="/img/sns_blog.png" alt="Blog Icon"></a>
+            </div>
+        </div>
+    </div>
+
+</div>
+</html>

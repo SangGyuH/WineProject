@@ -24,11 +24,13 @@ public class Util {
     public static HttpSession getSession() {
         return getRequest().getSession();
     }
+
     public static User getLoggedUser(){
         PrincipalDetails userDetails = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDetails.getUser();
         return user;  //현재 로그인 한 사용자
     }
+
 
 
     // 첨부파일 정보 출력하기
@@ -55,7 +57,7 @@ public class Util {
                 System.out.printf("### LOG: 이미지 파일입니다: %d x %d ###\n", bufferedImage.getWidth(), bufferedImage.getHeight());
             }
         } catch (IOException e) {
-            System.out.println("### LOG: 이미지 파일이 이납니다. ###");
+            System.out.println("### LOG: 이미지 파일이 아닙니다. ###");
         }
 
     }
