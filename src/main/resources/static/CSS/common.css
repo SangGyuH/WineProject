@@ -11,10 +11,6 @@ a {
     padding: 15px;
 }
 
-a:hover {
-    display: block;
-    color: white;
-}
 
 #mySpan {
     cursor:pointer;
@@ -24,7 +20,7 @@ a:hover {
     text-decoration: underline;
 }
 
-input[type="file"] {
+#myInput {
     opacity: 0;
 }
 
