@@ -1,5 +1,6 @@
 package com.lec.spring.config;
 
+import com.lec.spring.domain.Authority;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,6 +27,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
         PrincipalDetails userDetails = (PrincipalDetails)authentication.getPrincipal();
         System.out.println("username: " + userDetails.getUsername());
         System.out.println("password: " + userDetails.getPassword());
+        System.out.println("user authority : " + userDetails.getAuthorities());
         List<String> roleNames = new ArrayList<>();   // 권한이름들
         authentication.getAuthorities().forEach(authority -> {
             roleNames.add(authority.getAuthority());

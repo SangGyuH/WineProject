@@ -7,12 +7,15 @@
 
     <sql id="SELECT_BASE">
         SELECT
+            user_uid,
             user_id,                <!-- User 의 setter -->
             user_name,
             user_pw,
             user_addr1,
             user_addr2,
-            user_addr3
+            user_addr3,
+            user_email,
+            user_phone
         FROM
             tb_user
     </sql>
@@ -31,8 +34,8 @@
                     <!-- ↓ DML 시에는 가급적이면 flushCache true(사용안한다는 의미)-->
     <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.User"
             keyProperty="user_uid" useGeneratedKeys="true" keyColumn="user_uid"> <!-- 자동 생성된 키값을 가져온다(useGeneratedKeys true). 자동 생성된 키 값은 db에 어디? user_id column(keyColumn="user_id")( 매개변수 받은 User에, set호출을 통하여, 데이터베이스의 user_id 컬럼을-->
-        INSERT INTO tb_user(user_id, user_pw, user_name, user_addr1, user_addr2, user_addr3)    <!-- 테이블의 필드 -->
-        VALUE(#{user_id}, #{user_pw}, #{user_name}, #{user_addr1}, #{user_addr2}, #{user_addr3}) <!-- User 객체의 getter 값 -->
+        INSERT INTO tb_user(user_id, user_pw, user_name, user_addr1, user_addr2, user_addr3, user_email, user_phone)    <!-- 테이블의 필드 -->
+        VALUE(#{user_id}, #{user_pw}, #{user_name}, #{user_addr1}, #{user_addr2}, #{user_addr3}, #{user_email}, #{user_phone}) <!-- User 객체의 getter 값 -->
     </insert>
 
     <update id="update" flushCache="true" parameterType="com.lec.spring.domain.User">

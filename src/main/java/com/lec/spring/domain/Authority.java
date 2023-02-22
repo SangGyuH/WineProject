@@ -20,6 +20,6 @@ public class Authority {
 
     private Long authority_id;                //권한 pk
 
-    private String authority;       //권한명 : ROLE_ADMIN, ROLE_MEMBER_SILVER, ROLE_MEMBER_GOLD, ROLE_MEMBER_DIAMOND;
+    private String authority;       //권한명 : ROLE_ADMIN, ROLE_SILVER, ROLE_GOLD, ROLE_DIAMOND;
 
 }

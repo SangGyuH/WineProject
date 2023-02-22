@@ -24,9 +24,10 @@ public class UserValidator implements Validator {
             errors.rejectValue("user_id", "아이디 입력은 필수입니다");
         }
 
-        // TODO 이메일, 주소, 연락처 들어가야함
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "user_name", "이름 입력은 필수입니다");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "user_pw", "패스워드 입력은 필수입니다");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "user_email", "이메일 입력은 필수입니다");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "user_addr3", "주소 입력은 필수입니다");
 
         if(!user.getUser_pw().equals(user.getUser_repw())){
             errors.rejectValue("user_repw", "패스워드와 패스워드 확인 입력 값은 같아야 합니다.");

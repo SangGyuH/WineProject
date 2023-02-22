@@ -1,12 +1,15 @@
 package com.lec.spring.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Data
@@ -21,6 +24,7 @@ public class User {
     @JsonIgnore
     private String user_repw;           //사용자 비밀번호 재확인용
     private String user_name;           //사용자 이름
+
     private String user_email;          //사용자 이메일
     private String user_phone;          //사용자 휴대폰 번호
 
@@ -46,6 +50,11 @@ public class User {
         this.user_repw = re_password;
     }
 
+    public void addAuthority(Authority... authorities){
+        if(authorities != null){
+            Collections.addAll(this.authorities, authorities);
+        }
+    }
 
 
 
