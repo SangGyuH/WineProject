@@ -108,6 +108,7 @@ public class NoticeService {
     }
 
     public List<Notice> detail(long notice_id) {
+
         List<Notice> list = new ArrayList<>();
         Notice notice = noticeRepository.findById(notice_id);
 

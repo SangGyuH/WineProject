@@ -21,7 +21,6 @@ public class Notice {
     //공지사항 정보를 담는 VO파일.
 
     private Long notice_id;                     //공지사항 식별코드(PK)
-    private User user;                          //작성자 누구인지? 사용자 정보 객체
 
     private String notice_title;                //공지사항 제목
 
@@ -33,6 +32,7 @@ public class Notice {
     @JsonProperty("wnrv_regdate")
     private LocalDateTime notice_regdate;       //공지사항 등록일자
 
+    private User user;                          //작성자 누구인지? 사용자 정보 객체
     @ToString.Exclude
     @Builder.Default
     private List<NoticeFile> fileList = new ArrayList<>();

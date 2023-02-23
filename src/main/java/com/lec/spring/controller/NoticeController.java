@@ -30,7 +30,7 @@ public class NoticeController {
     public void write(){}
 
     @PostMapping("/noticeWrite")
-    public String noticeWriteDone(@RequestParam Map<String, MultipartFile> files, @ModelAttribute("noticeVO") Notice notice, Model model){
+    public String noticeWriteDone(@RequestParam Map<String, MultipartFile> files, @ModelAttribute("notice") Notice notice, Model model){
         model.addAttribute("result", noticeService.write(notice,files));
         return "notice/noticeWriteDone";
     }

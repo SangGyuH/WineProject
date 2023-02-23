@@ -5,11 +5,15 @@ INSERT INTO tb_authority (authority) VALUES
     ('ROLE_ADMIN'), ('ROLE_SILVER'), ('ROLE_GOLD'), ('ROLE_DIAMOND')
 ;
    
+-- admin 사용자 (id: admin, pw: 1234)
+INSERT INTO tb_user (user_id, user_pw, user_name, user_email, user_phone, user_addr1, user_addr2, user_addr3) 
+VALUES 
+	('admin', '$2a$10$tlrJg7LySHU.2JdNUZ/aX.mp1435Xa9lxqOW2iy6npTqP1sEoZUXK','관리자', 'admin@gmail.com','01012345678', '서울특별시 강남구 테헤란로 146', '현익빌딩 3층, 4층', '06236')
+;
 
 -- 샘플 사용자
 INSERT INTO tb_user (user_id, user_pw, user_name, user_email, user_phone, user_addr1, user_addr2, user_addr3)
 VALUES
-    ('admin', '0000', '관리자', 'admin@gmail.com', '01000000000', '서울특별시 강남구 테헤란로 146', '현익빌딩 3층, 4층', '06236'),
     ('apple', '1111', '김사과', 'apple@gmail.com', '01011111111', '서울특별시 강남구 테헤란로 146', '현익빌딩 3층, 4층', '06236'),
     ('banana', '2222', '반하나', 'banana@gmail.com', '01022222222', '서울특별시 강남구 테헤란로 146', '현익빌딩 3층, 4층', '06236'),
     ('orange', '3333', '오렌지', 'orange@gmail.com', '01033333333', '서울특별시 강남구 테헤란로 146', '현익빌딩 3층, 4층', '06236'),
@@ -47,7 +51,7 @@ VALUES
     ;
 
 
-INSERT INTO tb_notice (user_uid, notice_content, notice_title)
+INSERT INTO tb_notice (user_uid, notice_title, notice_content)
 VALUES
     (1, '샘플용 공지사항1', '샘플용 공지사항의 상세 내용입니다.'),
     (1, '샘플용 공지사항2', '샘플용 공지사항의 상세 내용입니다.'),
@@ -58,4 +62,19 @@ VALUES
     (1, '샘플용 공지사항7', '샘플용 공지사항의 상세 내용입니다.')
     ;
 
+-- 두번째 관리자 추가
+INSERT INTO tb_user (user_id, user_pw, user_name, user_email, user_phone, user_addr1, user_addr2, user_addr3)
+VALUES
+	('admin2', '$2a$10$tlrJg7LySHU.2JdNUZ/aX.mp1435Xa9lxqOW2iy6npTqP1sEoZUXK','관리자2', 'admin@gmail.com','01012345678', '서울특별시 강남구 테헤란로 146', '현익빌딩 3층, 4층', '06236')
+;
+INSERT INTO tb_user_authorities
+VALUES (1, 8)
+;
 
+INSERT INTO tb_notice (user_uid, notice_title, notice_content)
+VALUES
+    (8, '샘플용 공지사항8', '샘플용 공지사항의 상세 내용입니다.'),
+    (8, '샘플용 공지사항9', '샘플용 공지사항의 상세 내용입니다.'),
+    (8, '샘플용 공지사항10', '샘플용 공지사항의 상세 내용입니다.'),
+    (8, '샘플용 공지사항11', '샘플용 공지사항의 상세 내용입니다.')
+;

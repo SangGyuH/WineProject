@@ -40,7 +40,7 @@
         <result column="notice_title" property="notice_title"/>
         <result column="notice_content" property="notice_content"/>
         <result column="notice_regdate" property="notice_regdate"/>
-        <collection property="user" resultMap="mapNotice"/>
+        <collection property="user" resultMap="mapUser"/>
     </resultMap>
 
     <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.Notice"
@@ -72,7 +72,7 @@
 
     <select id="selectFromRow" resultMap="mapNotice">
         <include refid="SELECT_BASE"/>
-        ORDER BY n.notice_id DESC
+        ORDER BY notice_id DESC
         LIMIT #{param1}, #{param2}
     </select>
 

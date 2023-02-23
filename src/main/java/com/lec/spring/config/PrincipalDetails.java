@@ -22,6 +22,7 @@ public class PrincipalDetails implements UserDetails {
     }
 
     public PrincipalDetails(User user) {
+        System.out.println("PrincipalDetails() 생성 : " +user);
         this.user = user;
     }
 

@@ -1,10 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<th:block th:if="${list} and ${#lists.size(list) > 0}" th:with="notice=${list[0]}, logged_user=${#authentication.principal.user}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-</body>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script th:inline = "javascript">
+        const conPath = [[${conPath}]];
+        const logged_id = [[${logged_user.user_uid}]];
+    </script>
+    <script th:src="@{/js/noticeDetail.js}"></script>
+
+    <title>공지사항 상세게시글</title>
+</head>
+
+    <body>
+
+    <!--헤더-->
+    <th:block th:insert="~{common/header::header}"></th:block>
+    <!--헤더-->
+
+    <div class="container">
+        <div>공지사항 상세게시글</div>
+
+        <section>
+            <form name="frmDelete" th:action="@{/notice/noticeDelete}" method="post">
+                <input type="hidden" name="notice_id" th:value="${notice.notice_id}">
+            </form>
+
+            <div>
+                <label>작성자 : </label>
+                <div>[[${notice.user.user_name}]]</div>
+            </div>
+            <div>
+                <label>제목 : </label>
+                <div>[[${notice.notice_title}]]</div>
+            </div>
+            <div>
+                <div th:utext="${notice.notice_content}"></div>
+            </div>
+
+            <!--첨부파일 목록-->
+            <div class="container">
+                <div>
+                    <label>첨부파일:</label>
+                    <!--첨부파일 이름, 다운로드 링크-->
+                    <ul class="list-group mb-1">
+                        <li class="list-group-item" th:each="noticeFile : ${notice.fileList}">
+                            <a th:href="@{download(id=${noticeFile.notice_file_id})}">[[${noticeFile.source}]]</a>
+                        </li>
+                    </ul>
+                    <!--/* 이미지인 경우 보여주기 */-->
+                    <div th:each="fileDto : ${notice.fileList}" th:if="${fileDto.image}">
+                        <img th:src="@{'/upload' + ${fileDto.file}}" class="img-thumbnail" alt="Cinque Terre">
+                    </div>
+                </div>
+            </div>
+            <!--첨부파일 목록-->
+
+            <!-- 하단 링크 -->
+            <a class="btn btn-outline-dark" th:href="@{/notice/noticeUpdate(notice_id=${notice.notice_id})}" th:if="${logged_user.user_uid == notice.user.user_uid}">수정</a>
+            <a class="btn btn-outline-dark" th:href="@{/notice/noticeList(page=${session.page})}">목록</a>
+            <button type="button" class="btn btn-outline-dark" id="btnDel" th:if="${logged_user.user_uid == notice.user.user_uid}">삭제</button>
+            <a class="btn btn-outline-dark" th:href="@{/notice/noticeWrite}" sec:authorize="hasAnyRole('ADMIN')">추가작성</a>
+            <!-- 하단 링크 -->
+
+        </section>
+    </div>
+
+    <!-- 푸터 -->
+    <th:block th:insert="~{common/footer::footer}"></th:block>
+    <!-- 푸터 -->
+
+    </body>
+
+</th:block>
 </html>

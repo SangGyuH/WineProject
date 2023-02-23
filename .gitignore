@@ -35,3 +35,4 @@ build/
 ### application.properties에 있는 본인 sql 계정 각자 다르게 유지 ###
 application.properties
 
+src/main/resources/application.properties
