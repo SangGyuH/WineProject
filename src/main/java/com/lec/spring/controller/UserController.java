@@ -3,18 +3,15 @@ package com.lec.spring.controller;
 import com.lec.spring.domain.User;
 import com.lec.spring.domain.UserValidator;
 import com.lec.spring.service.UserService;
+import com.lec.spring.util.Util;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
@@ -22,7 +19,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-
     private UserService userService;
 
     @Autowired
@@ -56,11 +52,12 @@ public class UserController {
 
     @PostMapping("/register")
     public String registerOk(@Valid User user   // 해당 시점에 바인딩됨
-            , BindingResult result              // UserValidator 가 유효성 검증한 결과가 담기는 객체
-            , Model model
-            , RedirectAttributes redirectAttrs
+            , BindingResult result              // UserValidator 가 유효성 검증한 결과가 담기는 객체(UserValidator 의 Errors errors)
+            , Model model                       // (규칙)매개변수 선언 시 BindingResult 보다 Model 을 뒤에 두어야한다.
+            , RedirectAttributes redirectAttrs  // 에러가 발생하면 redirect 할 것이고, 이에따라 redirect: 시 넘겨줄 값들
     ){
 
+        // validation(검증) 에러가 있었다면 redirect 할 것임
         // 이미 등록된 아이디가 들어오면 에러발생
         if(!result.hasFieldErrors("user_id") && userService.isExist(user.getUser_id())){
             result.rejectValue("user_id", "이미 존재하는 아이디 입니다.");
@@ -70,9 +67,11 @@ public class UserController {
         if(result.hasErrors()){
             redirectAttrs.addFlashAttribute("user_id", user.getUser_id());
             redirectAttrs.addFlashAttribute("user_name", user.getUser_name());
+            redirectAttrs.addFlashAttribute("user_phone", user.getUser_phone());
 
-            List<FieldError> errList = result.getFieldErrors();
+            List <FieldError> errList = result.getFieldErrors();
             for(FieldError err : errList) {
+//              addFlashAttribute 는 post 방식으로 redirect 발생 <-> redirectAttrs.addAttribute 는 Get 방식으로 갈때 사용(RequestParam에서 다루는 내용)
                 redirectAttrs.addFlashAttribute("error", err.getCode());  // 가장 처음에 발견된 에러를 담아서 보낸다
                 break;
             }
@@ -86,9 +85,56 @@ public class UserController {
         return page;
     }
 
-    // UserValidator 를 바인딩 검증하는 용도로 사용 등록
+    @GetMapping("/mypage")
+    public void mypage(Model model){
+        User user = Util.getLoggedUser();
+        model.addAttribute("user", user);
+        model.addAttribute("authorities", user);
+        System.out.println("##### user:" + user);
+    }
+
+    @GetMapping("/changeInfo")
+    public void changeInfo(Model model){
+        User user = Util.getLoggedUser();
+        model.addAttribute("user", user);
+    }
+    @PostMapping("/changeInfo")
+    public String changeInfoOk(@Valid @ModelAttribute("dto") User user
+            , BindingResult bindingResult
+            , Model model
+            , RedirectAttributes redirectAttrs
+    ){
+        if(bindingResult.hasErrors()){
+            List<FieldError> errList = bindingResult.getFieldErrors();
+            for(FieldError err : errList){
+                //addFlashAttribute 는 post 방식으로 redirect 발생 <-> redirectAttrs.addAttribute 는 Get 방식으로 갈때 사용(RequestParam에서 다루는 내용)
+                redirectAttrs.addFlashAttribute("error", err.getCode());
+                break;
+            }
+            return "redirect:/user/changeInfo";
+        }
+        model.addAttribute("result", userService.update(user));
+        model.addAttribute("dto", user);
+        //세션해제 코드 등록(?)
+        return "user/changeInfoOk";
+    }
+
+    @RequestMapping("/purchaseList")
+    public void purchaseList(Model model){
+        User user = Util.getLoggedUser();
+        model.addAttribute("user", user);
+    }
+
+    @RequestMapping("/unregister")
+    public void unregister(Model model){
+        User user = Util.getLoggedUser();
+        model.addAttribute("user", user);
+    }
+
+//     UserValidator 를 바인딩 검증하는 용도로 사용 등록
     @InitBinder
     public void initBinder(WebDataBinder binder){
+        System.out.println("initBinder() 호출");
         binder.setValidator(new UserValidator());
     }
 

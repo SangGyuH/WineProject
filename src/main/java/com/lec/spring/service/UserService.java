@@ -37,6 +37,13 @@ public class UserService {
         return (user != null) ? true : false;
     }
 
+    public int update(User user){
+        int result = 0;
+        user.setUser_pw(passwordEncoder.encode(user.getUser_pw()));
+        result = userRepository.update(user);
+        return result;
+    }
+
     // 신규 회원 등록(회원가입)
     public int register(User user){
         user.setUser_id(user.getUser_id().toUpperCase());       //DB에 회원아이디 대문자로 저장

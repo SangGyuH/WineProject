@@ -39,7 +39,7 @@
     </insert>
 
     <update id="update" flushCache="true" parameterType="com.lec.spring.domain.User">
-        UPDATE tb_user SET user_id = #{user_id}, user_pw = #{user_pw}, user_name = #{user_name}
-        WHERE user_id = #{user}
+        UPDATE tb_user SET user_pw = #{user_pw}, user_phone = #{user_phone}, user_addr1 = #{user_addr1}, user_addr2 = #{user_addr2}, user_addr3 = #{user_addr3}
+        WHERE user_id = #{user_id}
     </update>
 </mapper>
