@@ -18,41 +18,8 @@
 <body>
 <div id="wrap">
     <header>
-
         <th:block th:insert="~{common/header::header}"></th:block>
     </header>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            와인검색
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">SEARCH</a></li>
-                            <li><a class="dropdown-item" href="#">RED</a></li>
-                            <li><a class="dropdown-item" href="#">WHITE</a></li>
-                            <li><a class="dropdown-item" href="#">SPARKLING</a></li>
-                            <li><a class="dropdown-item" href="#">ROSE</a></li>
-                            <li><a class="dropdown-item" href="#">DESSERT</a></li>
-                            <li><a class="dropdown-item" href="#">PORT</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/board/list}">자유게시판</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/notice/noticeList}">공지사항</a>
-                    </li>
-                </ul>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        </div>
-    </nav>
     <article>
         <div style="text-align:center;">
             <img src="img/pexels-photomix-company-95960.jpg" width="1300px" height="700px" alt="">
