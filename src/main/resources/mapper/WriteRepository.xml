@@ -17,13 +17,13 @@
     <!-- 반복해서 사용될 쿼리문은 sql 태그로 정의 include 태그로 가져다 쓸수 있다 -->
     <sql id="SELECT_BASE">
         SELECT
-            w.write_id,
-            w.write_title,
-            w.write_content,
-            w.write_regdate,
-            u.user_uid,
-            u.user_id,
-            u.user_name
+            w.write_id "write_id",
+            w.write_title "write_title",
+            w.write_content "write_content",
+            w.write_regdate "write_regdate",
+            u.user_uid "user_uid",
+            u.user_id "user_id",
+            u.user_name "user_name"
         FROM
             tb_write w, tb_user u
         WHERE
@@ -69,6 +69,12 @@
         DELETE FROM tb_write WHERE write_id = #{write_id}
     </delete>
 
+    <!-- 페이징용 쿼리 -->
+    <select id="selectFromRow" resultMap="mapWrite">
+        <include refid="SELECT_BASE"/>
+        ORDER BY w.write_id DESC
+        LIMIT #{param1}, #{param2}
+    </select>
 
 
     <select id="countAll" resultType="int">

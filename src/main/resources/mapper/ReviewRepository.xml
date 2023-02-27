@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lec.spring.repository.ReviewRepository">
+
+    <resultMap id="mapUser" type="com.lec.spring.domain.User">
+        <result column="user_uid" property="user_uid"/>
+        <result column="user_id" property="user_id"/>
+        <result column="user_pw" property="user_pw"/>
+        <result column="user_name" property="user_name"/>
+    </resultMap>
+
+    <resultMap id="mapReview" type="com.lec.spring.domain.WriteReview">
+        <result column="wr_id" property="wr_id"/>
+        <result column="wr_content" property="wr_content"/>
+        <result column="wr_regdate" property="wr_regdate"/>
+        <result column="write_id" property="write.write_id"/>
+        <collection property="user" resultMap="mapUser"/>
+    </resultMap>
+
+    <select id="findByWrite" resultMap="mapReview">
+        SELECT
+            r.wr_id "wr_id",
+            r.wr_content "wr_content",
+            r.wr_regdate "wr_regdate",
+            r.write_id "write_id",
+            u.user_uid "user_uid",
+            u.user_id "user_id",
+            u.user_pw "user_pw",
+            u.user_name "user_name"
+        FROM tb_write_review r, tb_user u
+        WHERE
+            r.user_uid = u.user_uid
+            AND r.write_id = #{param1}
+        ORDER BY r.wr_id DESC
+    </select>
+
+    <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.WriteReview"
+            keyProperty="wr_id" useGeneratedKeys="true" keyColumn="wr_id">
+        INSERT INTO tb_write_review(user_uid, write_id, wr_content)
+        VALUES(#{user.user_uid}, #{write.write_id}, #{wr_content})
+    </insert>
+
+    <delete id="deleteById" flushCache="true">
+        DELETE FROM tb_write_review WHERE wr_id = #{wr_id}
+    </delete>
+
+
+</mapper>

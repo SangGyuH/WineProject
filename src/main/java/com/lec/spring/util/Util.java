@@ -38,7 +38,7 @@ public class Util {
         String originalFileName = file.getOriginalFilename();       // 원본 파일명
 
         if(originalFileName == null || originalFileName.length() == 0){
-            System.out.println("### ERROR: Util.java 파일 에서 에러발생! ###\n### ERROR 원인: 파일이 없습니다. ###");
+            //System.out.println("### ERROR: Util.java 파일 에서 에러발생! ###\n### ERROR 원인: 파일이 없습니다. ###");
             return;
         }
         System.out.println("----------------------------");         //파일 정보 log 출력

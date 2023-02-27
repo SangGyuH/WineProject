@@ -19,7 +19,7 @@
             parameterType="com.lec.spring.domain.WriteFile">
         INSERT INTO tb_write_file(source, file, write_id)
         VALUES
-        (#{source}, #{file}, #{write_id})
+        (#{source}, #{file}, #{write.write_id})
     </insert>
 
     <!-- 반복해서 사용될 쿼리문은 sql 태그로 정의 include 태그로 가져다 쓸수 있다 -->
@@ -32,35 +32,35 @@
         <include refid="SELECTFILE"/>
         WHERE
         write_id = #{param1}
-        ORDER BY id ASC
+        ORDER BY write_file_id ASC
     </select>
 
     <select id="findById" resultType="com.lec.spring.domain.WriteFile">
         <include refid="SELECTFILE"/>
-        WHERE id = #{id}
+        WHERE write_file_id = #{write_file_id}
     </select>
 
     <select id="findByIds" resultType="com.lec.spring.domain.WriteFile"
             parameterType="java.util.ArrayList">
         <include refid="SELECTFILE"/>
         WHERE
-        id IN
+        write_file_id IN
         <foreach collection="array" item="e" separator="," open="(" close=")">
             #{e}
         </foreach>
-        ORDER BY id ASC
+        ORDER BY write_file_id ASC
     </select>
 
     <delete id="deleteByIds" flushCache="true"
             parameterType="java.util.ArrayList">
-        DELETE FROM t5_file
-        WHERE id IN (<foreach collection="array" item="item" separator=",">
+        DELETE FROM tb_write_file
+        WHERE write_file_id IN (<foreach collection="array" item="item" separator=",">
         #{item}
     </foreach>)
     </delete>
 
     <delete id="delete" flushCache="true">
-        DELETE FROM t5_file WHERE id = #{id}
+        DELETE FROM tb_write_file WHERE write_file_id = #{write_file_id}
     </delete>
 
 

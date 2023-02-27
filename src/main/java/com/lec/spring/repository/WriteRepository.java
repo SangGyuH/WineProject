@@ -21,6 +21,10 @@ public interface WriteRepository {
     // 특정 id 글 삭제하기
     int delete(Write write);
 
+    // 페이징
+    // from 부터 rows 개 만큼 select
+    List<Write> selectFromRow(int from, int rows);
+
     // 전체 글의 개수
     int countAll();
 

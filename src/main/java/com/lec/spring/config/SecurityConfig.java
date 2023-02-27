@@ -28,6 +28,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())                   //CSRF 비활성화
                 // ↓ 조율해야함
                 .authorizeHttpRequests(auth -> auth
+
                         // ↓ 해당 페이지들은 로그인(인증)이 되어있어야한다
                         .requestMatchers("/board/list/**").authenticated()
 

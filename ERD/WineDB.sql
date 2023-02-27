@@ -252,7 +252,7 @@ ALTER TABLE tb_write_file
 	ADD FOREIGN KEY (write_id)
 	REFERENCES tb_write (write_id)
 	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+	ON DELETE CASCADE
 ;
 
 
@@ -260,12 +260,10 @@ ALTER TABLE tb_write_review
 	ADD FOREIGN KEY (write_id)
 	REFERENCES tb_write (write_id)
 	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+	ON DELETE CASCADE
 ;
 
-/* tb_wine 수정_최지수 */
-ALTER TABLE tb_wine ADD COLUMN wine_count int(3) NOT NULL;
-ALTER TABLE tb_wine ADD COLUMN wine_serialkey int(4) NOT NULL;
+
 
 ALTER TABLE tb_wine_review DROP FOREIGN KEY tb_wine_review_ibfk_2;
 ALTER TABLE tb_wine_review DROP FOREIGN KEY tb_wine_review_ibfk_4;
