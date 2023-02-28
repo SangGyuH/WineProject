@@ -5,14 +5,15 @@
 
 
 
+<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+<link rel="stylesheet" type="text/css" th:href="@{/CSStemp/css/main.css}">
+<link rel="stylesheet" type="text/css" th:href="@{/CSStemp/css/bootstrap/bootstrap.css}">
+
 <th:block th:fragment="header">
     <nav class="navbar navbar-expand-sm navbar-dark bg-white">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/vvine}"><img src="/img/wine_test_img.jpg" alt="" width="160" height="120"/></a>
-            <div class="collapse navbar-collapse" id="mynavbar">
-                <ul class="navbar-nav me-auto">
 
-                </ul>
                 <!-- 로그인 안했을때는 로그인 form 보여주기 -->
                 <a class="btn btn-outline-dark" sec:authorize="isAnonymous()" th:href="@{/user/login}">회원서비스</a>
 
@@ -33,33 +34,29 @@
             </div>
         </div>
     </nav>
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <nav id="nav-menu-container">
+        <ul class="nav-menu">
+                    <li class="menu-has-children">
+                        <a href="#">
                             와인검색
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">SEARCH</a></li>
-                            <li><a class="dropdown-item" href="#">RED</a></li>
-                            <li><a class="dropdown-item" href="#">WHITE</a></li>
-                            <li><a class="dropdown-item" href="#">SPARKLING</a></li>
-                            <li><a class="dropdown-item" href="#">ROSE</a></li>
-                            <li><a class="dropdown-item" href="#">DESSERT</a></li>
-                            <li><a class="dropdown-item" href="#">PORT</a></li>
+                        <ul>
+                            <li><a href="#">SEARCH</a></li>
+                            <li><a href="#">RED</a></li>
+                            <li><a href="#">WHITE</a></li>
+                            <li><a href="#">SPARKLING</a></li>
+                            <li><a href="#">ROSE</a></li>
+                            <li><a href="#">DESSERT</a></li>
+                            <li><a href="#">PORT</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/board/list}">자유게시판</a>
+                    <li>
+                        <a th:href="@{/board/list}">자유게시판</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/notice/noticeList}">공지사항</a>
+                    <li>
+                        <a th:href="@{/notice/noticeList}">공지사항</a>
                     </li>
-                </ul>
-            </div>
-        </div>
+        </ul>
     </nav>
 </th:block>
 

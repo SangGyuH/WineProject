@@ -33,7 +33,7 @@ public class SecurityConfig {
                         .requestMatchers("/board/list/**").authenticated()
 
                         // ↓ 해당 페이지들은 로그인(인증) 및 권한(ADMIN, SILVER, GOLD, DIAMOND)이 필요하다.
-                        .requestMatchers("/board/write/**", "/board/update/**", "/board/delete/**", "/board/detail/**").hasAnyRole("ROLE_ADMIN", "ROLE_SILVER", "ROLE_GOLD", "ROLE_DIAMOND")
+                        .requestMatchers("/board/write/**", "/board/update/**", "/board/delete/**", "/board/detail/**").hasAnyRole("ADMIN", "SILVER", "GOLD", "DIAMOND")
 
                         // ↓ 해당 페이지들은 관리자만 접속 가능하다
                         .requestMatchers("/notice/noticeDelete/**", "/notice/noticeUpdate/**", "/notice/noticeWrite/**").hasAnyRole("ADMIN")
