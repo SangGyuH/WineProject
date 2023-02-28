@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<script th:if="${dto == null}">
+    alert("해당 정보가 삭제되거나 없습니다");
+    history.back();
+</script>
+<th:block th:if="${dto}" th:with="dto=${dto}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>wine name</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+
+    <style>
+        *{
+            
+        }
+        #window{
+            width: 80%;
+            margin: auto;
+        }
+        article{
+            box-sizing: border-box;
+            /* border: 1px gainsboro solid; */
+            float: left;
+            min-height: 100px;
+            padding: 20px 10px;
+        }
+
+        
+        /* wine */
+        article#wine{
+            width: 30%;
+        }
+        
+        #wine>img{
+            max-width: 100%;
+            height: 350px;
+            display: block;
+            margin: 20px auto 80px;
+        }
+        
+        #wine>div#info{
+            padding-bottom: 20px;
+        }
+        #wine>div#info, #wine>div#stock{
+            padding-left: 10px;
+        }
+        #wine>div#info>span{
+            display: block;
+            padding: 5px 0px;
+        }
+        #wine>div#info>span:nth-child(1){
+            font-weight: bold;
+            font-size: 20px;
+        }
+        #wine>div#info>span:nth-child(2){
+            opacity: 50%;
+            font-size: 15px;
+        }
+        
+        #wine>div#stock{}
+        #wine>div#stock>div{}
+        #wine>div#stock>div:nth-child(1){
+            font-size: 14px;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
+        }
+        #wine>div#stock>div:nth-child(1)>span#stockTotal{}
+        #wine>div#stock>div:nth-child(2){
+            font-size: 17px;
+        }
+        #wine>div#stock>div:nth-child(2)>span{
+            padding-right: 5px;
+        }
+        #wine>div#stock>div:nth-child(2)>span:nth-child(1){
+            font-size: 20px;
+        }
+        #wine>div#stock>div:nth-child(2)>input[type=button]{
+            float: right;
+            padding: 5px 30px;
+            box-sizing: border-box;
+            border: none;
+            border-radius: 10px;
+            background-color: pink;
+            cursor: pointer;
+        }
+
+
+        /* review */
+        article#review{
+            width: 70%;
+        }
+        article#review>#reviewForm, article#review>#comentList{
+            width: 90%;
+            margin: auto;
+        }
+        article#review>#reviewForm{
+            height: 80px;
+            /* border: 1px gainsboro solid; */
+        }
+        #reviewForm *{
+            box-sizing: border-box;
+        }
+        #reviewForm>#star{
+            height: 50%;
+            padding-left: 10px;
+            padding-top: 5px;
+        }
+        #reviewForm>#star>div{  /*점수*/
+            display: inline-block;
+            clear: both;
+            height: 30px;
+            box-sizing: border-box;
+            padding-top: 5px;
+            margin-left: 20px;
+            font-size: 15px;
+            font-weight: bold;
+            opacity: 65%;
+            letter-spacing: -1px;
+        }
+            /* review star */
+            @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+            
+            fieldset, label { margin: 0; padding: 0; }
+            h1 { font-size: 1.5em; margin: 10px; }
+
+            .rating { 
+            border: none;
+            float: left;
+            }
+            .rating > input { 
+                display: none; 
+            } 
+            .rating > label:before { 
+            margin: 5px;
+            font-size: 1.25em;
+            font-family: FontAwesome;
+            display: inline-block;
+            content: "\f005";
+            }
+            .rating > .half:before { 
+            content: "\f089";
+            position: absolute;
+            }
+            .rating > label { 
+            color: #ddd; 
+            float: right; 
+            }
+            .rating > input:checked ~ label,
+            .rating:not(:checked) > label:hover,
+            .rating:not(:checked) > label:hover ~ label { color: #FFD700;  }
+
+            .rating > input:checked + label:hover,
+            .rating > input:checked ~ label:hover,
+            .rating > label:hover ~ input:checked ~ label,
+            .rating > input:checked ~ label:hover ~ label { color: #FFED85;  } 
+
+
+        #reviewForm>#coment{
+            height: 50%;
+        }
+        #coment>input[type=text], #coment>input[type=button]{
+            height: 100%;
+            border: 1px gainsboro solid;
+            margin: 0;
+            padding: 0;
+            float: left;
+        }
+        #coment>input[type=text]:focus{
+            outline: none;
+        }
+        #coment>input[type=text]{
+            width: 90%;    
+            padding-left: 10px;
+            overflow: auto;
+            border-right: none;
+        }
+        #coment>input[type=button]{
+            width: 10%;
+            border-radius: 0px 15px 15px 0px;
+            border-left: none;
+        }
+        
+            
+        /*  */
+        article#review>#comentList{
+            border-top: 1px gainsboro solid;
+            margin-top: 20px;
+            padding-top: 10px;
+        }
+        
+        /* star */
+        .inner-star::before{color: #555;}
+        .outer-star::before{content: '\f005 \f005 \f005 \f005 \f005';}
+        .outer-star {position: relative;display: inline-block;color: #ddd;}
+        .inner-star {position: absolute;left: 0;top: 0;width: 0%;overflow: visible;white-space: nowrap;}
+        .outer-star, .inner-star {font-size: 15px;}
+        .outer-star::before, .inner-star::before {font-family: 'Font Awesome 5 free';font-weight: 900;}
+        /* score_num */
+        .inner-star.score_1::before{content: '\f089';}
+        .inner-star.score_2::before{content: '\f005';}
+        .inner-star.score_3::before{content: '\f005 \f089';}
+        .inner-star.score_4::before{content: '\f005 \f005';}
+        .inner-star.score_5::before{content: '\f005 \f005 \f089';}
+        .inner-star.score_6::before{content: '\f005 \f005 \f005';}
+        .inner-star.score_7::before{content: '\f005 \f005 \f005 \f089';}
+        .inner-star.score_8::before{content: '\f005 \f005 \f005 \f005';}
+        .inner-star.score_9::before{content: '\f005 \f005 \f005 \f005 \f089';}
+        .inner-star.score_10::before{content: '\f005 \f005 \f005 \f005 \f005';}
+        
+        #comentList>li:first-child{
+            margin-top: 0px;
+        }
+        #comentList>li{
+            list-style-type: none;
+            margin: 20px 5px;
+            padding: 5px 10px;
+            position: relative;
+        }
+        #comentList>li>div{}
+        #comentList>li>div:nth-child(1){
+            margin-bottom: 3px;
+        }
+        #comentList>li>div:nth-child(1)>span{
+            font-size: 15px;
+        }
+        #comentList>li>div:nth-child(1)>span:nth-child(1){/*id*/}
+        #comentList>li>div:nth-child(1)>span:nth-child(2){/*date*/
+            margin-left: 15px;
+            font-size: 12px;
+            opacity: 50%;
+        }
+        #comentList>li>div:nth-child(1)>div{
+            float: right;
+            font-size: 12px;
+            margin-top: 5px;
+        }
+        #comentList>li>div:nth-child(1)>div>a{
+            opacity: 50%;
+            letter-spacing: -1px;
+            cursor: pointer;
+        }
+        #comentList>li>div:nth-child(1)>div>a:nth-child(1){}
+        #comentList>li>div:nth-child(1)>div>a:nth-child(2){
+            margin-left: 5px;
+        }
+        #comentList>li>div.starScore{
+            width: 100px;
+        }
+        #comentList>li>div:nth-child(2), #comentList>li>div:nth-child(3){
+            display: inline-block;
+        }
+        #comentList>li>div:nth-child(3){ /* content */
+            font-size: 15px;
+            letter-spacing: -1px;
+            opacity: 85%;
+        }
+        .contentInput{
+            position: absolute;
+            left: 110px;
+            width: -webkit-fill-available;
+            margin-top: 2px;
+            box-sizing: border-box;
+            margin-right: 75px;
+            height: 25px;
+            font-size: 15px;
+            border: none;
+            border-bottom: 2px #00000033 solid;
+            outline: none;
+            padding-left: 5px;
+        }
+
+
+    </style>
+    <script th:inline="javascript">
+        const conPath = [[${conPath}]];
+    </script>
+</head>
+<body>
+    <div id="window">
+        <article id="wine">
+            <img th:src="${dto.wine_img}">
+            <div id="info">
+                <span th:utext="${dto.wine_name}"></span><span th:utext="${dto.wine_location}"></span>
+            </div>
+            <div id="stock" th:if="${dto.wine_id}">
+                <div>재고 : <span id="stockTotal" th:utext="${dto.wine_count}"></span></div>
+                <div><span th:utext="${dto.wine_price}"></span>원<input type="button" value="구매"></div>
+            </div>
+            <div id="stock" th:if="${dto.wine_id == null}">
+                <div>재고 : <span id="stockTotal">0</span></div>
+                <div><span></span><input type="button" value="입고 요청"></div>
+            </div>
+        </article>
+        <article id="review">
+            <form name="reviewForm" id="reviewForm">
+                <input type="hidden" name="wine_type" th:value="${dto.wine_type}" />
+                <input type="hidden" name="wine_serialkey" th:value="${dto.wine_serialkey}" />
+                <div id="star">
+                    <fieldset class="rating">
+                        <input type="radio" id="star5" name="rating" value="10" /><label class = "full" for="star5"></label>
+                        <input type="radio" id="star4half" name="rating" value="9" /><label class="half" for="star4half"></label>
+                        <input type="radio" id="star4" name="rating" value="8" /><label class = "full" for="star4"></label>
+                        <input type="radio" id="star3half" name="rating" value="7" /><label class="half" for="star3half"></label>
+                        <input type="radio" id="star3" name="rating" value="6" /><label class = "full" for="star3"></label>
+                        <input type="radio" id="star2half" name="rating" value="5" /><label class="half" for="star2half"></label>
+                        <input type="radio" id="star2" name="rating" value="4" /><label class = "full" for="star2"></label>
+                        <input type="radio" id="star1half" name="rating" value="3" /><label class="half" for="star1half"></label>
+                        <input type="radio" id="star1" name="rating" value="2" /><label class = "full" for="star1"></label>
+                        <input type="radio" id="starhalf" name="rating" value="1" /><label class="half" for="starhalf"></label>
+                    </fieldset>
+                    <div>0</div>
+                </div>
+                <div id="coment">
+                    <input type="text" name="wnrv_content" placeholder="한줄평을 입력해주세요." />
+                    <input type="button" name="reviewBtn" value="입력"/>
+                </div>
+            </form>
+            <div id="comentList" th:if="${commentList}">
+                <li th:each="comt : ${commentList}">
+                    <div>
+                        <span th:utext="${comt.user.user_id}"></span>
+                        <span th:utext="${#temporals.format(comt.wnrv_regdate, 'yyyy-MM-dd HH:mm:ss')}"></span>
+                        <div><a class="reviewChange">수정</a><a class="reviewRemove">삭제</a></div>
+                    </div>
+                    <div class="starScore"><span class="outer-star"><span class="inner-star"></span></span></div>
+                    <div th:utext="${comt.wnrv_content}"></div>
+                    <input type="hidden" th:value="${comt.wnrv_reviews}" name="userScore" />
+                    <input type="hidden" th:value="${comt.wnrv_id}" name="id" />
+                </li>
+            </div>
+            <div id="comentList" th:if="${commentList == null}" th:each="comt : ${commentList}" >평가가 없습니다.</div>
+        </article>
+    </div>
+</body>
+</html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>    
+    
+    $(function(){
+        let $rating;        
+        let $content;
+        const $wine_type = $('input[name=wine_type]').val();
+        const $wine_serialkey = $('input[name=wine_serialkey]').val();
+        //
+        
+        //
+        const resetList = function(wine_type, wine_serialkey){
+            $.ajax({
+                type: "POST",
+                url: conPath + "/review/list",
+                data: {
+                    "wine_serialkey" : wine_serialkey,
+                    "wine_type" : wine_type,
+                },
+                cache: false,
+                success: function(data, status, xhr){
+                    if(status == "success"){
+                        if(data.status !== "OK"){
+                            alert(data.status);
+                            return;
+                        }                            
+                    }
+                    let reviewList = data.reviews;
+                    let reviewStr = [];
+                    for (const review of reviewList) {
+                        const out = 
+                        `<li>
+                            <div>
+                                <span>${review.user.user_id}</span>
+                                <span>${review.wnrv_regdate.replace("T"," ")}</span>
+                                <div><a class="reviewChange">수정</a><a class="reviewRemove">삭제</a></div>
+                            </div>
+                            <div class="starScore"><span class="outer-star"><span class="inner-star"></span></span></div>
+                            <div>${review.wnrv_content}</div>
+                            <input type="hidden" value="${review.wnrv_reviews}" name="userScore" />
+                            <input type="hidden" value="${review.wnrv_id}" name="id" />
+                        </li>
+                        `
+                        reviewStr.push(out);
+                    }
+                    const formOut = `
+                        <fieldset class="rating">
+                            <input type="radio" id="star5" name="rating" value="10" /><label class = "full" for="star5"></label>
+                            <input type="radio" id="star4half" name="rating" value="9" /><label class="half" for="star4half"></label>
+                            <input type="radio" id="star4" name="rating" value="8" /><label class = "full" for="star4"></label>
+                            <input type="radio" id="star3half" name="rating" value="7" /><label class="half" for="star3half"></label>
+                            <input type="radio" id="star3" name="rating" value="6" /><label class = "full" for="star3"></label>
+                            <input type="radio" id="star2half" name="rating" value="5" /><label class="half" for="star2half"></label>
+                            <input type="radio" id="star2" name="rating" value="4" /><label class = "full" for="star2"></label>
+                            <input type="radio" id="star1half" name="rating" value="3" /><label class="half" for="star1half"></label>
+                            <input type="radio" id="star1" name="rating" value="2" /><label class = "full" for="star1"></label>
+                            <input type="radio" id="starhalf" name="rating" value="1" /><label class="half" for="starhalf"></label>
+                        </fieldset>
+                        <div>0</div>`
+
+                    $('form[name=reviewForm]>#star').html(formOut);
+                    $('#coment>input[name=wnrv_content]').val("");
+                    $('#comentList').html(reviewStr.join("\n"));
+                    $rating = null;
+
+                    for (const el of $('#comentList>li')) {
+                        const $userScore = el.getElementsByTagName('input')[0].defaultValue;
+                        const $innerStar = $(el).children('div.starScore').children('span').children('span');
+                        $innerStar.toggleClass(`score_${$userScore}`);
+                    }
+                    $('.reviewChange').on('click',function(){
+                        let $id = $(this).parent().parent().siblings('input[name=id]').val();
+                        if($(this).html() == "수정"){
+                            $content = $(this).parent().parent().siblings('div').next().html();    //바뀌기 전
+                            //div:content
+                            $(this).parent().parent().siblings('div').next().css('display','none');
+                            $(this).parent().parent().siblings('div').parent().append(`<input type="text" name="content" class="contentInput"/>`);
+                            //input
+                            $(this).parent().parent().siblings('input[name=content]').focus();
+                            $(this).parent().parent().siblings('input[name=content]').val($content);
+                            $(this).html("완료");
+                        }else{
+                            $content = $(this).parent().parent().siblings('input[name=content]').val();
+                            ($id) && reviewUpdate($id, $content);
+                            $content = null;
+                        }
+                    });
+                    $('.reviewRemove').on('click',function(){
+                        let $id = $(this).parent().parent().siblings('input[name=id]').val();
+                        confirm('삭제하시겠습니까?') && reviewDelete($id);            
+                    })
+                },
+            });
+            //
+            
+        }
+        const reviewUpdate = function(id, content){
+            $.ajax({
+                type: "POST",
+                url: conPath + "/review/update",
+                data: {
+                    "wnrv_content" : content,
+                    "wnrv_id" : id,
+                },
+                cache: false,
+                success: function(data, status, xhr){
+                    if(status == "success"){
+                        if(data.status !== "OK"){ alert(data.status); return; }
+                        resetList($wine_type, $wine_serialkey);
+                    }
+                },
+            });
+        }
+        const reviewDelete = function(id){
+            $.ajax({
+                type: "GET",
+                url: conPath + "/review/delete",
+                data: {"wnrv_id" : id,},
+                cache: false,
+                success: function(data, status, xhr){
+                    if(status == "success"){
+                        alert('삭제되었습니다.')
+                        resetList($wine_type, $wine_serialkey);
+                    }
+                },
+            });
+        }        
+        //
+        $('.rating > label').mouseover(function(){ $('#star>div').html($(this).prev().val()); });
+        $('.rating > label').mouseout(function(){ $rating && $('#star>div').html($rating); });
+        $('.rating > label').click(function(){ $rating = $(this).prev().val(); });
+
+
+        $('.reviewChange').on('click',function(){
+            let $id = $(this).parent().parent().siblings('input[name=id]').val();     
+            if($(this).html() == "수정"){
+                $content = $(this).parent().parent().siblings('div').next().html();    //바뀌기 전
+                //div:content
+                $(this).parent().parent().siblings('div').next().css('display','none');
+                $(this).parent().parent().siblings('div').parent().append(`<input type="text" name="content" class="contentInput"/>`);
+                //input
+                $(this).parent().parent().siblings('input[name=content]').focus();
+                $(this).parent().parent().siblings('input[name=content]').val($content);
+                $(this).html("완료");
+            }else{
+                $content = $(this).parent().parent().siblings('input[name=content]').val();
+                ($id) && reviewUpdate($id, $content);
+                $content = null;
+            }
+        });
+        $('.reviewRemove').on('click',function(){
+            let $id = $(this).parent().parent().siblings('input[name=id]').val();
+            confirm('삭제하시겠습니까?') && reviewDelete($id);            
+        })
+
+        $('#coment>input[name=reviewBtn]').on('click',function(){
+            const $wnrv_content = $(this).siblings('input[type=text]').val();
+            if(!$rating || ($rating === 0)){
+                alert('별점을 매겨주세요!');
+            }else{
+                $.ajax({
+                    type: "POST",
+                    url: conPath + "/review/insert",
+                    data: {
+                        "wnrv_content" : $wnrv_content,
+                        "wnrv_reviews" : $rating,
+                        "wine_serialkey" : $wine_serialkey,
+                        "wine_type" : $wine_type,
+                    },
+                    cache: false,
+                    success: function(data, status, xhr){
+                        if(status == "success"){
+                            if(data.status !== "OK"){
+                                alert(data.status);
+                                return;
+                            }                            
+                            resetList($wine_type, $wine_serialkey);
+                            $(this).siblings('input[type=text]').val("");
+                        }
+                    },
+                });
+            }
+        });
+
+        for (const el of $('#comentList>li')) {
+            const $userScore = el.getElementsByTagName('input')[0].defaultValue;
+            const $innerStar = $(el).children('div.starScore').children('span').children('span');
+            $innerStar.toggleClass(`score_${$userScore}`);
+        }
+    })
+</script>
+<script src="https://kit.fontawesome.com/5c3bd4b785.js" crossorigin="anonymous"></script>
+</th:block>
