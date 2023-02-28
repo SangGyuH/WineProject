@@ -72,7 +72,7 @@ public class NoticeController {
     @PostMapping("/pageRows")
     public String pageRows(Integer page, Integer pageRows){
         Util.getSession().setAttribute("pageRows", pageRows);
-        return "redirect:notice/noticeList?page="+page;
+        return "redirect:/notice/noticeList?page="+page;
     }
 
 }

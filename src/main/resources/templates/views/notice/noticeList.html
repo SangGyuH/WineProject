@@ -6,8 +6,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link rel="shortcut icon" th:href="@{img/favicon.ico}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fragments.css}">
+    <link rel="stylesheet" th:href="@{/css/vvineStyle.css}">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script th:src="@{/js/vendor/bootstrap.min.js}"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+    <script th:src="@{/js/easing.min.js}"></script>
+    <script th:src="@{/js/hoverIntent.js}"></script>
+    <script th:src="@{/js/superfish.min.js}"></script>
+    <script th:src="@{/js/jquery.ajaxchimp.min.js}"></script>
+    <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
+    <script th:src="@{/js/owl.carousel.min.js}"></script>
+    <script th:src="@{/js/jquery.sticky.js}"></script>
+    <script th:src="@{/js/jquery.nice-select.min.js}"></script>
+    <script th:src="@{/js/parallax.min.js}"></script>
+    <script th:src="@{/js/mail-script.js}"></script>
+    <script th:src="@{/js/main.js}"></script>
+
+<!--    <script th:src="@{/js/vvineAIOFunc.js}"></script>-->
     <script th:src="@{/js/noticeList.js}"></script>
 
     <title>공지사항</title>
@@ -23,42 +43,75 @@
 
 
     <!-- 페이징 헤더 -->
-    <div class="mb-3 mt-3 clearfix">
+<!--    <div class="mb-3 mt-3 clearfix">-->
+<!--        <span>총 [[${cnt}]]개</span>-->
+<!--        <span>page [[${page}]]/[[${totalPage}]]</span>-->
+<!--        <span>-->
+<!--            <form name="frmPageRows">-->
+<!--                <input type="hidden" name="page" th:value="${page}">-->
+<!--                <select class="form-select" name="pageRows">-->
+<!--                    <option value="10" th:selected="${pageRows==10}">10</option>-->
+<!--                    <option value="15" th:selected="${pageRows==15}">15</option>-->
+<!--                    <option value="20" th:selected="${pageRows==20}">20</option>-->
+<!--                    <option value="50" th:selected="${pageRows==50}">50</option>-->
+<!--                </select>-->
+<!--            </form>-->
+<!--        </span>-->
+<!--    </div>-->
 
-        <span>총 [[${cnt}]]개</span>
-        <span>page [[${page}]]/[[${totalPage}]]</span>
-        <span>
-            <form name="frmPageRows">
-                <input type="hidden" name="page" th:value="${page}">
-                <select class="form-select" name="pageRows">
-                    <option value="10" th:selected="${pageRows==10}">10</option>
-                    <option value="15" th:selected="${pageRows==15}">15</option>
-                    <option value="20" th:selected="${pageRows==20}">20</option>
-                    <option value="50" th:selected="${pageRows==50}">50</option>
-                </select>
-            </form>
-        </span>
+    <div class="single-element-widget mt-30">
+        <h2 class="mb-10">총 [[${cnt}]]개</h2>
+        <h5 class="mb-30">page [[${page}]]/[[${totalPage}]]</h5>
+        <div class="default-select" id="default-select">
+            <select>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="35">35</option>
+                <option value="50">50</option>
+            </select>
+            <div class="nice-select" tabindex="0">
+                <span class="current">10</span>
+                <form th:action="@{/pageRows}" method="post">
+                    <input type="hidden" name="page" th:value="${page}">
+                </form>
+                <ul class="list pageRows" name="pageRows">
+                    <li data-value="10" value="10" class="option selected focus pageRowsItem pageRowsItem10">10</li>
+                    <li data-value="15" value="15" class="option pageRowsItem pageRowsItem15">15</li>
+                    <li data-value="20" value="20" class="option pageRowsItem pageRowsItem20">20</li>
+                    <li data-value="35" value="35" class="option pageRowsItem pageRowsItem35">35</li>
+                    <li data-value="50" value="50" class="option pageRowsItem pageRowsItem50">50</li>
+                </ul>
+            </div>
+        </div>
     </div>
     <!-- 페이징 헤더 -->
+    <!-- 목록 -->
+        <div class="section-top-border">
+            <h3 class="mb-30">공지사항</h3>
+            <div class="progress-table-wrap">
+                <table class="progress-table">
+                    <thead>
+                        <tr class="table-head">
+                            <td class="serial">#</td>
+                            <td class="country">TITLE</td>
+                            <td class="visit">DATE</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row" th:each="notice : ${list}">
+                            <td class="serial">[[${notice.notice_id}]]</td>
+                            <td class="country"><a th:href="@{/notice/noticeDetail(notice_id=${notice.notice_id})}">[[${notice.notice_title}]]</a></td>
+                            <td class="visit">[[${#temporals.format(notice.notice_regdate, 'yyyy-MM-dd')}]]</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    <!-- 목록 -->
 
-    <!-- 목록 -->
-    <table>
-        <thead>
-            <tr>
-                <td>공지사항 ID</td>
-                <td>제목</td>
-                <td>작성일</td>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="notice : ${list}">
-                <td>[[${notice.notice_id}]]</td>
-                <td><a th:href="@{/notice/noticeDetail(notice_id=${notice.notice_id})}">[[${notice.notice_title}]]</a></td>
-                <td>[[${#temporals.format(notice.notice_regdate, 'yyyy-MM-dd')}]]</td>
-            </tr>
-        </tbody>
-    </table>
-    <!-- 목록 -->
+
+
 
     <div class="row">
         <div class="col-12">
