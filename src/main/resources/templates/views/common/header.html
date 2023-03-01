@@ -21,7 +21,7 @@
                 <form th:action="@{/user/logout}" method="POST" sec:authorize="isAuthenticated" th:with="user=${#authentication.getPrincipal().getUser()}">
                     <!--TODO : 로그아웃후 다시 돌아오기 -->
                     <span class="d-flex">
-                            <span class="nav-menu" style="color:#fff;font-weight:400;font-size:12px;">
+                            <span id="nav-nav" class="nav-menu">
                                 <span sec:authorize="hasRole('ADMIN')">ADMIN/</span>
                                 <span sec:authorize="hasRole('SILVER')">SILVER/</span>
                                 <span sec:authorize="hasRole('GOLD')">GOLD/</span>

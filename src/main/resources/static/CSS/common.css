@@ -38,9 +38,16 @@ a {
 }
 
 #headercontainer{
-    background-color:#530031;
+    /*background-color:#530031;*/
+    background-color:white;
 }
 
 #nav-ul{
     opacity:90%;
+}
+
+#nav-nav{
+    color:black;
+    font-weight:400;
+    font-size:12px;
 }
