@@ -15,6 +15,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <link rel="shortcut icon" type="text/css" th:href="@{/img/favicon.ico}">
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/linearicons.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/owl.carousel.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/nice-select.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/magnific-popup.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/bootstrap.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/main.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/CSS/pages.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/fragments.css}">
 
@@ -37,9 +47,9 @@
 <th:block th:insert="~{common/header::header}"></th:block>
 
 <div class="container mt-3">
-    <h2>자유게시판</h2>
-    <br><br><br><br><br>
-    <div class="mb-3 mt-3 clearfix">
+    <h3 style="text-align:center";>자유게시판</h3>
+    <br><br>
+    <div class="mt-10">
         <span class="float-end ms-4">작성일: [[${#temporals.format(dto.write_regdate, 'yyyy-MM-dd HH:mm:ss')}]]</span>
     </div>
 
@@ -49,15 +59,15 @@
         </form>
 
 
-        <div class="mb-3">
+        <div class="mt-10">
             <label>작성자</label>
             <div class="border bg-light rounded p-2" >[[${dto.user.user_id}]]</div>
         </div>
-        <div class="mb-3 mt-3">
+        <div class="mt-10">
             <label>제목</label>
             <div class="border bg-light rounded p-2" >[[${dto.write_title}]]</div>
         </div>
-        <div class="mb-3 mt-3">
+        <div class="mt-10">
             <label>내용</label>
             <div class="border bg-light rounded p-2" th:utext="${dto.write_content}"></div>
         </div>
@@ -81,10 +91,10 @@
 
 
         <!-- 하단 링크 -->
-        <a class="btn btn-outline-dark" th:href="@{/board/update(write_id=${dto.write_id})}" th:if="${logged_user.user_uid == dto.user.user_uid}">수정</a>
-        <a class="btn btn-outline-dark" th:href="@{/board/list(page=${session.page})}">목록</a>
-        <button type="button" class="btn btn-outline-dark" id="btnDel" th:if="${logged_user.user_uid == dto.user.user_uid}">삭제</button>
-        <a class="btn btn-outline-dark" th:href="@{/board/write}" sec:authorize="hasAnyRole('ADMIN','SILVER','GOLD','DIAMOND')">작성</a>
+        <a class="genric-btn primary-border circle" th:href="@{/board/update(write_id=${dto.write_id})}" th:if="${logged_user.user_uid == dto.user.user_uid}">수정</a>
+        <a class="genric-btn primary-border circle" th:href="@{/board/list(page=${session.page})}">목록</a>
+        <button type="button" class="genric-btn primary-border circle" id="btnDel" th:if="${logged_user.user_uid == dto.user.user_uid}">삭제</button>
+        <a class="genric-btn primary-border circle" th:href="@{/board/write}" sec:authorize="hasAnyRole('ADMIN','SILVER','GOLD','DIAMOND')">작성</a>
         <!-- 하단 링크 -->
 
         <!-- 댓글 -->

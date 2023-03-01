@@ -5,59 +5,59 @@
 
 
 
-<link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
-<link rel="stylesheet" type="text/css" th:href="@{/CSStemp/css/main.css}">
-<link rel="stylesheet" type="text/css" th:href="@{/CSStemp/css/bootstrap/bootstrap.css}">
-
 <th:block th:fragment="header">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-white">
-        <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/vvine}"><img src="/img/wine_test_img.jpg" alt="" width="160" height="120"/></a>
 
+        <div class="container" style="background-color:#530031">
+            <div class="row align-items-center justify-content-between d-flex">
+                <div id="logo">
+                    <a class="navbar-brand" th:href="@{/vvine}"><img src="/img/wine_test_img.jpg" alt="" width="160" height="120"/></a>
+                </div>
                 <!-- 로그인 안했을때는 로그인 form 보여주기 -->
-                <a class="btn btn-outline-dark" sec:authorize="isAnonymous()" th:href="@{/user/login}">회원서비스</a>
-
+                <div class="d-flex flex-row-reverse">
+                    <a class="genric-btn primary-border circle" sec:authorize="isAnonymous()" th:href="@{/user/login}">회원서비스</a>
+                </div>
                 <!-- 로그인 했을때는 username 과 로그아웃 form 보여주기 -->
+                <div class="d-flex flex-row-reverse">
                 <form th:action="@{/user/logout}" method="POST" sec:authorize="isAuthenticated" th:with="user=${#authentication.getPrincipal().getUser()}">
                     <!--TODO : 로그아웃후 다시 돌아오기 -->
                     <span class="d-flex">
-                            <span class="text-dark p-2">
+                            <span class="nav-menu" style="color:#fff;font-weight:400;font-size:12px;">
                                 <span sec:authorize="hasRole('ADMIN')">ADMIN/</span>
                                 <span sec:authorize="hasRole('SILVER')">SILVER/</span>
                                 <span sec:authorize="hasRole('GOLD')">GOLD/</span>
                                 <span sec:authorize="hasRole('DIAMOND')">DIAMOND/</span>
                                 <a th:href="@{/user/mypage}"><span TODO="">[[${user.user_id}]]([[${user.user_name}]])</span> 님</a>
                             </span>
-                            <span><button class="btn btn-outline-dark" type="submit">Logout</button></span>
+                            <span><button class="genric-btn primary-border circle" type="submit">Logout</button></span>
                     </span>
                 </form>
+                </div>
+
+
+                 <nav id="nav-menu-container">
+                    <ul class="nav-menu">
+                        <li class="menu-has-children"><a href class="sf-with-ul">와인검색</a>
+                            <ul>
+                                <li><a href="#">SEARCH</a></li>
+                                <li><a href="#">RED</a></li>
+                                <li><a href="#">WHITE</a></li>
+                                <li><a href="#">SPARKLING</a></li>
+                                <li><a href="#">ROSE</a></li>
+                                <li><a href="#">DESSERT</a></li>
+                                <li><a href="#">PORT</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a th:href="@{/board/list}">자유게시판</a>
+                        </li>
+                        <li>
+                            <a th:href="@{/notice/noticeList}">공지사항</a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
-    </nav>
-    <nav id="nav-menu-container">
-        <ul class="nav-menu">
-                    <li class="menu-has-children">
-                        <a href="#">
-                            와인검색
-                        </a>
-                        <ul>
-                            <li><a href="#">SEARCH</a></li>
-                            <li><a href="#">RED</a></li>
-                            <li><a href="#">WHITE</a></li>
-                            <li><a href="#">SPARKLING</a></li>
-                            <li><a href="#">ROSE</a></li>
-                            <li><a href="#">DESSERT</a></li>
-                            <li><a href="#">PORT</a></li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a th:href="@{/board/list}">자유게시판</a>
-                    </li>
-                    <li>
-                        <a th:href="@{/notice/noticeList}">공지사항</a>
-                    </li>
-        </ul>
-    </nav>
+
 </th:block>
 
 </html>
