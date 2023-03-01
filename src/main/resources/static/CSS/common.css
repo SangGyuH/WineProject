@@ -28,3 +28,19 @@ a {
     height: 50px;
 }
 
+#article{
+    text-align:center;
+    margin:220px 0 0 0;
+}
+
+#h33 {
+    text-align:center;
+}
+
+#headercontainer{
+    background-color:#530031;
+}
+
+#nav-ul{
+    opacity:90%;
+}
