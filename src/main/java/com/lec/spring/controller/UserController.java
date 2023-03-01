@@ -1,11 +1,13 @@
 package com.lec.spring.controller;
 
+import com.lec.spring.config.PrincipalDetails;
 import com.lec.spring.domain.User;
 import com.lec.spring.domain.UserValidator;
 import com.lec.spring.service.UserService;
 import com.lec.spring.util.Util;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -68,10 +70,12 @@ public class UserController {
             redirectAttrs.addFlashAttribute("user_id", user.getUser_id());
             redirectAttrs.addFlashAttribute("user_name", user.getUser_name());
             redirectAttrs.addFlashAttribute("user_phone", user.getUser_phone());
+            redirectAttrs.addFlashAttribute("user_email", user.getUser_email());
+
+//            redirectAttrs.addFlashAttribute("errors", result);
 
             List <FieldError> errList = result.getFieldErrors();
             for(FieldError err : errList) {
-//              addFlashAttribute 는 post 방식으로 redirect 발생 <-> redirectAttrs.addAttribute 는 Get 방식으로 갈때 사용(RequestParam에서 다루는 내용)
                 redirectAttrs.addFlashAttribute("error", err.getCode());  // 가장 처음에 발견된 에러를 담아서 보낸다
                 break;
             }
@@ -96,7 +100,9 @@ public class UserController {
     @GetMapping("/changeInfo")
     public void changeInfo(Model model){
         User user = Util.getLoggedUser();
-        model.addAttribute("user", user);
+        // db에서 읽어오기
+        User user2 = userService.findByUsername(user.getUser_id());
+        model.addAttribute("user", user2);
     }
     @PostMapping("/changeInfo")
     public String changeInfoOk(@Valid @ModelAttribute("dto") User user
@@ -115,7 +121,7 @@ public class UserController {
         }
         model.addAttribute("result", userService.update(user));
         model.addAttribute("dto", user);
-        //세션해제 코드 등록(?)
+
         return "user/changeInfoOk";
     }
 
@@ -125,10 +131,25 @@ public class UserController {
         model.addAttribute("user", user);
     }
 
-    @RequestMapping("/unregister")
+    @GetMapping("/unregister")
     public void unregister(Model model){
         User user = Util.getLoggedUser();
         model.addAttribute("user", user);
+    }
+
+    @PostMapping("/unregister")
+    public String unregisterOk(@RequestParam String id, @RequestParam String password, Model model){
+        User user = userService.findByUsername(id);
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        boolean isMatch = passwordEncoder.matches(password, user.getUser_pw());
+        if(isMatch) {
+            int result = userService.deleteById(id); // 삭제. result : 삭제한 갯수
+            model.addAttribute("result", result);
+        }
+        else
+            model.addAttribute("result", 0);
+        Util.getSession().invalidate();
+        return "user/unregisterOk";
     }
 
 //     UserValidator 를 바인딩 검증하는 용도로 사용 등록

@@ -169,62 +169,6 @@ ALTER TABLE tb_notice_file
 
 
 ALTER TABLE tb_buy
-	ADD FOREIGN KEY (user_uid)
-	REFERENCES tb_user (user_uid)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE tb_notice
-	ADD FOREIGN KEY (user_uid)
-	REFERENCES tb_user (user_uid)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE tb_point
-	ADD FOREIGN KEY (user_uid)
-	REFERENCES tb_user (user_uid)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE tb_user_authorities
-	ADD FOREIGN KEY (user_uid)
-	REFERENCES tb_user (user_uid)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE tb_wine_review
-	ADD FOREIGN KEY (user_uid)
-	REFERENCES tb_user (user_uid)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE tb_write
-	ADD FOREIGN KEY (user_uid)
-	REFERENCES tb_user (user_uid)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE tb_write_review
-	ADD FOREIGN KEY (user_uid)
-	REFERENCES tb_user (user_uid)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
-;
-
-
-ALTER TABLE tb_buy
 	ADD FOREIGN KEY (wine_id)
 	REFERENCES tb_wine (wine_id)
 	ON UPDATE RESTRICT

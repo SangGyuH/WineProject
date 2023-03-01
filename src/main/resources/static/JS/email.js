@@ -1,5 +1,5 @@
-$(function(){
 // 이메일 인증번호
+$(function(){
 $("#checkEmail").click(function() {
    $.ajax({
       type : "POST",
@@ -42,6 +42,7 @@ function chkEmailConfirm(data, memailconfirm, memailconfirmTxt){
 	})
 }
 
+// 인증번호 체크2
 function submitCheck(){
     var result = $('#emconfirmchk').html();
     console.log("result : " + result);
