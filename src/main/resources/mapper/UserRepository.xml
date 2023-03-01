@@ -42,4 +42,12 @@
         UPDATE tb_user SET user_pw = #{user_pw}, user_phone = #{user_phone}, user_addr1 = #{user_addr1}, user_addr2 = #{user_addr2}, user_addr3 = #{user_addr3}
         WHERE user_id = #{user_id}
     </update>
+
+    <delete id="delete" flushCache="true" parameterType="com.lec.spring.domain.User">
+        DELETE FROM tb_user WHERE user_id = #{user_id}
+    </delete>
+
+    <delete id="deleteByUserid" flushCache="true" parameterType="String">
+        DELETE FROM tb_user WHERE user_id = #{user_id}
+    </delete>
 </mapper>

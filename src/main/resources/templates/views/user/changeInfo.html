@@ -12,6 +12,17 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/fragments.css}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
+    <!-- temp css -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,200,400,300,500,600,700" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/csstemp/css/linearicons.css}">
+    <link rel="stylesheet" th:href="@{/csstemp/css/owl.carousel.css}">
+    <link rel="stylesheet" th:href="@{/csstemp/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/csstemp/css/nice-select.css}">
+    <link rel="stylesheet" th:href="@{/csstemp/css/magnific-popup.css}">
+    <link rel="stylesheet" th:href="@{/csstemp/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/csstemp/css/main.css}">
+    <!-- temp css end -->
+
     <title>개인정보변경</title>
 </head>
 
@@ -27,7 +38,6 @@
 
         <div class="row mt-5" th:if="${error }">
             <div class="col-12 text-danger" th:text="${error }">
-                <!--/* 에러메세지 */-->
             </div>
         </div>
 
@@ -41,9 +51,14 @@
                     <label for="name">이름</label>
                     <input type="text" class="form-control" id="name" name="name" th:value="${user.user_name}" readonly>
                 </div>
+
+                <div class="form-group mb-3">
+                    <input type="hidden" class="form-control" name="user_email" id="memail" th:value="${user.user_email}" readonly>
+                </div>
+
                 <div class="form-group mt-3">
                     <label for="password">변경할 패스워드</label>
-                    <input type="password" class="form-control" id="password" name="password">
+                    <input type="password" class="form-control" placeholder="숫자만 사용하여 5~20자리" id="password" name="password">
                 </div>
                 <div class="form-group mt-3">
                     <label for="re_password">변경할 패스워드 재입력</label>
@@ -51,7 +66,7 @@
                 </div>
                 <div class="form-group mt-3">
                     <label for="user_phone">연락처</label>
-                    <input type="phone" class="form-control" id="user_phone" name="user_phone" th:value="${user.user_phone}">
+                    <input type="phone" class="form-control" placeholder="'-' 포함, 숫자 '000-0000-0000'" id="user_phone" name="user_phone" th:value="${user.user_phone}">
                 </div>
 
                 <div class="form-group mt-3">
@@ -62,11 +77,6 @@
                 <input type="button" onclick="sample6_execDaumPostcode()" value="주소찾기"><br>
                 <input type="text" id="sample6_detailAddress" placeholder="상세주소" name="user_addr2" th:value="${user.user_addr2}">
                 <input type="text" id="sample6_extraAddress" placeholder="참고항목">
-
-                <div class="form-group last mb-4 email_input">
-                    <label for="memail" id="mailTxt">이메일</label>
-                    <input type="text" class="form-control" name="user_email" id="memail" th:value="${user.user_email}" readonly>
-                </div>
                 <br><br>
 
                 <button type="submit" class="w-100 btn btn-lg btn-primary mt-3">수정완료</button>
@@ -79,6 +89,24 @@
         <th:block th:insert="~{common/footer::footer}"></th:block>
     </footer>
 </div>
+
+    <!-- temp js -->
+    <script src="/Jstemp/js/vendor/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="/Jstemp/js/vendor/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+    <script src="/Jstemp/js/easing.min.js"></script>
+    <script src="/Jstemp/js/hoverIntent.js"></script>
+    <script src="/Jstemp/js/superfish.min.js"></script>
+    <script src="/Jstemp/js/jquery.ajaxchimp.min.js"></script>
+    <script src="/Jstemp/js/jquery.magnific-popup.min.js"></script>
+    <script src="/Jstemp/js/owl.carousel.min.js"></script>
+    <script src="/Jstemp/js/jquery.sticky.js"></script>
+    <script src="/Jstemp/js/jquery.nice-select.min.js"></script>
+    <script src="/Jstemp/js/parallax.min.js"></script>
+    <script src="/Jstemp/js/mail-script.js"></script>
+    <script src="/Jstemp/js/main.js"></script>
+    <!-- temp js end -->
 </body>
 
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>

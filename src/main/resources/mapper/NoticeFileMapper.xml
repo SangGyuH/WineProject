@@ -14,7 +14,7 @@
 
     <insert id="save" flushCache="true" parameterType="com.lec.spring.domain.NoticeFile">
         INSERT INTO tb_notice_file (source, file, notice_id)
-        VALUES (#{source}, #{file}, #{write_id})
+        VALUES (#{source}, #{file}, #{notice_id})
     </insert>
 
     <sql id="SELECT_FILE">

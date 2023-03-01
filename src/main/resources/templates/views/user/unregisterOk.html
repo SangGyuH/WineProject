@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<script th:unless="${result > 0}">
+     alert("패스워드를 확인하세요");
+     history.back();
+  </script>
+<script th:if="${result > 0}">
+     alert("정상적으로 회원탈퇴 처리되었습니다");
+     location.href = "/vvine";
+  </script>
+</html>
+

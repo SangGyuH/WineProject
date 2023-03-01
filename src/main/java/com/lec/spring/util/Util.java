@@ -32,7 +32,6 @@ public class Util {
     }
 
 
-
     // 첨부파일 정보 출력하기
     public static void printFileInfo(MultipartFile file){
         String originalFileName = file.getOriginalFilename();       // 원본 파일명

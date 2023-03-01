@@ -14,4 +14,8 @@ public interface UserRepository {
     int save(User user);
 
     int update(User user);
+
+    int delete(User user);
+
+    int deleteByUserid(String userid);
 }

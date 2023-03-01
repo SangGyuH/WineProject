@@ -6,26 +6,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" th:href="@{img/favicon.ico}">
+    <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/fragments.css}">
     <link rel="stylesheet" th:href="@{/css/vvineStyle.css}">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script th:src="@{/js/vendor/bootstrap.min.js}"></script>
+    <script th:src="@{/js/vvineFunc/vendor/bootstrap.min.js}"></script>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
-    <script th:src="@{/js/easing.min.js}"></script>
-    <script th:src="@{/js/hoverIntent.js}"></script>
-    <script th:src="@{/js/superfish.min.js}"></script>
-    <script th:src="@{/js/jquery.ajaxchimp.min.js}"></script>
-    <script th:src="@{/js/jquery.magnific-popup.min.js}"></script>
-    <script th:src="@{/js/owl.carousel.min.js}"></script>
-    <script th:src="@{/js/jquery.sticky.js}"></script>
-    <script th:src="@{/js/jquery.nice-select.min.js}"></script>
-    <script th:src="@{/js/parallax.min.js}"></script>
-    <script th:src="@{/js/mail-script.js}"></script>
-    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/vvineFunc/easing.min.js}"></script>
+    <script th:src="@{/js/vvineFunc/hoverIntent.js}"></script>
+    <script th:src="@{/js/vvineFunc/superfish.min.js}"></script>
+    <script th:src="@{/js/vvineFunc/jquery.ajaxchimp.min.js}"></script>
+    <script th:src="@{/js/vvineFunc/jquery.magnific-popup.min.js}"></script>
+    <script th:src="@{/js/vvineFunc/owl.carousel.min.js}"></script>
+    <script th:src="@{/js/vvineFunc/jquery.sticky.js}"></script>
+    <script th:src="@{/js/vvineFunc/jquery.nice-select.min.js}"></script>
+    <script th:src="@{/js/vvineFunc/parallax.min.js}"></script>
+    <script th:src="@{/js/vvineFunc/mail-script.js}"></script>
+    <script th:src="@{/js/vvineFunc/main.js}"></script>
 
 <!--    <script th:src="@{/js/vvineAIOFunc.js}"></script>-->
     <script th:src="@{/js/noticeList.js}"></script>
@@ -43,26 +43,15 @@
 
 
     <!-- 페이징 헤더 -->
-<!--    <div class="mb-3 mt-3 clearfix">-->
-<!--        <span>총 [[${cnt}]]개</span>-->
-<!--        <span>page [[${page}]]/[[${totalPage}]]</span>-->
-<!--        <span>-->
-<!--            <form name="frmPageRows">-->
-<!--                <input type="hidden" name="page" th:value="${page}">-->
-<!--                <select class="form-select" name="pageRows">-->
-<!--                    <option value="10" th:selected="${pageRows==10}">10</option>-->
-<!--                    <option value="15" th:selected="${pageRows==15}">15</option>-->
-<!--                    <option value="20" th:selected="${pageRows==20}">20</option>-->
-<!--                    <option value="50" th:selected="${pageRows==50}">50</option>-->
-<!--                </select>-->
-<!--            </form>-->
-<!--        </span>-->
-<!--    </div>-->
 
     <div class="single-element-widget mt-30">
         <h2 class="mb-10">총 [[${cnt}]]개</h2>
         <h5 class="mb-30">page [[${page}]]/[[${totalPage}]]</h5>
         <div class="default-select" id="default-select">
+            <form name="frmPageRows" th:action="@{/pageRows}" method="post">
+                <input type="hidden" name="page" th:value="${page}">
+                <input type="hidden" name="pageRows" value="10">
+            </form>
             <select>
                 <option value="10">10</option>
                 <option value="15">15</option>
@@ -70,21 +59,22 @@
                 <option value="35">35</option>
                 <option value="50">50</option>
             </select>
-            <div class="nice-select" tabindex="0">
-                <span class="current">10</span>
-                <form th:action="@{/pageRows}" method="post">
-                    <input type="hidden" name="page" th:value="${page}">
-                </form>
-                <ul class="list pageRows" name="pageRows">
-                    <li data-value="10" value="10" class="option selected focus pageRowsItem pageRowsItem10">10</li>
-                    <li data-value="15" value="15" class="option pageRowsItem pageRowsItem15">15</li>
-                    <li data-value="20" value="20" class="option pageRowsItem pageRowsItem20">20</li>
-                    <li data-value="35" value="35" class="option pageRowsItem pageRowsItem35">35</li>
-                    <li data-value="50" value="50" class="option pageRowsItem pageRowsItem50">50</li>
+
+            <div id="nice-select" class="nice-select" tabindex="0">
+                <span class="current" th:utext="${session.pageRows}">10</span>
+                <ul class="list" name="pageRowsList">
+                    <li data-value="10" value="10" class="option selected focus">10</li>
+                    <li data-value="15" value="15" class="option">15</li>
+                    <li data-value="20" value="20" class="option">20</li>
+                    <li data-value="35" value="35" class="option">35</li>
+                    <li data-value="50" value="50" class="option">50</li>
                 </ul>
             </div>
         </div>
     </div>
+
+
+
     <!-- 페이징 헤더 -->
     <!-- 목록 -->
         <div class="section-top-border">
@@ -94,14 +84,14 @@
                     <thead>
                         <tr class="table-head">
                             <td class="serial">#</td>
-                            <td class="country">TITLE</td>
+                            <td class="country pl-15">TITLE</td>
                             <td class="visit">DATE</td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="table-row" th:each="notice : ${list}">
                             <td class="serial">[[${notice.notice_id}]]</td>
-                            <td class="country"><a th:href="@{/notice/noticeDetail(notice_id=${notice.notice_id})}">[[${notice.notice_title}]]</a></td>
+                            <td class="country"><a class="text-black" th:href="@{/notice/noticeDetail(notice_id=${notice.notice_id})}">[[${notice.notice_title}]]</a></td>
                             <td class="visit">[[${#temporals.format(notice.notice_regdate, 'yyyy-MM-dd')}]]</td>
                         </tr>
                     </tbody>
@@ -113,10 +103,8 @@
 
 
 
-    <div class="row">
-        <div class="col-12">
-            <a class="btn btn-outline-dark" th:href="@{/notice/noticeWrite}" sec:authorize="hasAnyRole('ADMIN')">작성</a>
-        </div>
+    <div class="flex-right">
+            <a class="genric-btn primary circle" th:href="@{/notice/noticeWrite}" sec:authorize="hasAnyRole('ADMIN')">작성</a>
     </div>
 
 

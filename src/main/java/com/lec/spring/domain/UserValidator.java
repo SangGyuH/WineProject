@@ -23,11 +23,6 @@ public class UserValidator implements Validator {
 
         User user = (User)target;
 
-//        String username = user.getUser_id();
-//        if(username == null || username.trim().isEmpty()) {
-//            errors.rejectValue("user_id", "아이디 입력은 필수입니다");
-//        }
-
         String regexId;
         regexId = "^[a-zA-Z0-9]{5,20}$";
         String sno = user.getUser_id();

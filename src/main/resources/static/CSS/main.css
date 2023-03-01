@@ -542,6 +542,10 @@ td, th {
   padding-right: 30px;
 }
 
+.pl-15{
+  padding-left : 15px;
+}
+
 .pl-30 {
   padding-left: 30px;
 }
@@ -572,6 +576,10 @@ td, th {
 
 .text-black {
   color: #000;
+}
+
+.hidden {
+    display : none;
 }
 
 .transition {
@@ -654,6 +662,7 @@ td, th {
   -webkit-justify-content: flex-end;
   -moz-justify-content: flex-end;
   justify-content: flex-end;
+  display: flex;
 }
 
 .flex-top {
@@ -838,6 +847,7 @@ h1, h2, h3, h4, h5, h6 {
 .genric-btn {
   display: inline-block;
   outline: none;
+  margin: 0 5px;
   line-height: 40px;
   padding: 0 30px;
   font-size: .8em;
@@ -1072,10 +1082,19 @@ h1, h2, h3, h4, h5, h6 {
   padding: 30px 50px 30px 30px;
   background: #f9f9ff;
   border-left: 2px solid #b68834;
+  min-height: 550px;
+}
+
+.generic-blockquote-head{
+    display:flex;
+    justify-content : space-between;
+    border-bottom : solid 0.5px #d7d7d7;
+    font-weight: bold;
+    font-size: medium;
 }
 
 .progress-table-wrap {
-  overflow-x: scroll;
+  /*overflow-x: scroll;*/
 }
 
 .progress-table {
@@ -1286,7 +1305,7 @@ h1, h2, h3, h4, h5, h6 {
   outline: none;
   background: #f9f9ff;
   padding: 0 20px;
-  height: 100px;
+  height: 400px;
   resize: none;
 }
 

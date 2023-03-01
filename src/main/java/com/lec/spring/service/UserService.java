@@ -2,6 +2,7 @@ package com.lec.spring.service;
 
 import com.lec.spring.domain.Authority;
 import com.lec.spring.domain.User;
+import com.lec.spring.domain.Write;
 import com.lec.spring.repository.AuthorityRepository;
 import com.lec.spring.repository.UserRepository;
 import org.apache.ibatis.session.SqlSession;
@@ -64,6 +65,23 @@ public class UserService {
         authorityRepository.addAuthority(user_id, auth_id);
 
         return 1;
+    }
+
+    public int deleteById(String user_id){
+        int result;
+
+//        User user = userRepository.findById(id);
+//        if(user != null) {
+//            result = userRepository.delete(user);
+//        }
+
+//        User user = new User();
+//        user.setUser_id(user_id);
+//        result = userRepository.delete(user);
+
+        result = userRepository.deleteByUserid(user_id);
+
+        return result;
     }
 
     // 특정 사용자의 authority(들)

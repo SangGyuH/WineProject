@@ -15,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class User {
+
     private long user_uid;              //사용자 식별코드(PK)
     private String user_id;             //사용자 아이디
     private String user_name;           //사용자 이름
