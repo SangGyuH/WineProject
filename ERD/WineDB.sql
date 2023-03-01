@@ -208,6 +208,9 @@ ALTER TABLE tb_write_review
 ;
 
 
+-- table 수정 _최지수
+ALTER TABLE tb_wine ADD COLUMN wine_count int(3) NOT NULL;
+ALTER TABLE tb_wine ADD COLUMN wine_serialkey int(4) NOT NULL;
 
 ALTER TABLE tb_wine_review DROP FOREIGN KEY tb_wine_review_ibfk_2;
 ALTER TABLE tb_wine_review DROP FOREIGN KEY tb_wine_review_ibfk_4;
@@ -216,6 +219,8 @@ ALTER TABLE tb_wine_review MODIFY COLUMN wnrv_content longtext CHARACTER SET utf
 ALTER TABLE tb_wine_review MODIFY COLUMN wnrv_reviews int DEFAULT 1 NOT NULL;
 ALTER TABLE tb_wine_review ADD COLUMN wine_serialkey int(4) NOT NULL;
 ALTER TABLE tb_wine_review ADD COLUMN wine_type varchar(30) NOT NULL;
+
+ALTER TABLE tb_buy ADD COLUMN wine_paymentKey varchar(100) NOT NULL;
 
 
 
