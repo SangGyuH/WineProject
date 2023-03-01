@@ -163,8 +163,8 @@ ALTER TABLE tb_user_authorities
 ALTER TABLE tb_notice_file
 	ADD FOREIGN KEY (notice_id)
 	REFERENCES tb_notice (notice_id)
-	ON UPDATE RESTRICT
-	ON DELETE RESTRICT
+	ON UPDATE CASCADE
+	ON DELETE CASCADE
 ;
 
 

@@ -60,7 +60,7 @@ public class NoticeService {
     private void addFiles(Map<String, MultipartFile> files, Long notice_id){
         if(files!=null){
             for(Map.Entry<String, MultipartFile> e : files.entrySet()){
-                if(e.getKey().startsWith("upfiles")) continue;
+                if(!e.getKey().startsWith("upfile")) continue;
                 Util.printFileInfo(e.getValue());
                 NoticeFile file = upload(e.getValue());
                 if(file != null){
@@ -99,7 +99,6 @@ public class NoticeService {
         Path copyOfLocation = Paths.get(new File(uploadDir + File.separator + fileName).getAbsolutePath());
         try{
             Files.copy(multipartFile.getInputStream(), copyOfLocation, StandardCopyOption.REPLACE_EXISTING);
-
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -122,18 +121,20 @@ public class NoticeService {
     }
 
     private void setImage(List<NoticeFile> fileList){
-        String realPath = new File(uploadDir).getAbsolutePath();    //실질적 물리경로
+        String realPath = new File(uploadDir).getAbsolutePath();
 
-        for(NoticeFile file : fileList){
+        for(NoticeFile fileDto : fileList) {
             BufferedImage imgData = null;
-            File f = new File(realPath, file.getFile());        //첨부파일에 대한 File 객체
-            try{
+            File f = new File(realPath, fileDto.getFile());  // 첨부파일에 대한 File 객체
+            try {
                 imgData = ImageIO.read(f);
+                // ※ ↑ 파일이 존재 하지 않으면 IOExcepion 발생한다
+                //   ↑ 이미지가 아닌 경우는 null 리턴
             } catch (IOException e) {
-                System.out.println("### ERROR : 파일 존재 안함 (" +f.getAbsolutePath()+ ") ###");
-                System.out.println(e.getMessage());
+                System.out.println("파일존재안함: " + f.getAbsolutePath() + " [" + e.getMessage() + "]");
             }
-            if(imgData != null) file.setImage(true);
+
+            if (imgData != null) fileDto.setImage(true); // 이미지 여부 체크
         }
     }
 
@@ -183,7 +184,7 @@ public class NoticeService {
         addFiles(files, notice.getNotice_id());
         if(delfile != null){
             for(Long fileId : delfile){
-                NoticeFile file = noticeFileRepository.findById(notice.getNotice_id());
+                NoticeFile file = noticeFileRepository.findById(fileId);
                 if(file != null){
                     delFile(file);
                     noticeFileRepository.delete(file);

@@ -11,7 +11,7 @@ $(function(){
     });
 
     //Summernote 추가
-    ${'#content'}.summernote({
+    $('#notice_content').summernote({
         height: 300,
     });
 

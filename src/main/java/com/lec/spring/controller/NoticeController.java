@@ -44,6 +44,9 @@ public class NoticeController {
 
     @GetMapping("/noticeList")
     public void noticeList(Integer page, Model model){
+        if(Util.getSession().getAttribute("pageRows") == null){
+            Util.getSession().setAttribute("pageRows", 10);
+        }
         noticeService.list(page, model);
     }
 

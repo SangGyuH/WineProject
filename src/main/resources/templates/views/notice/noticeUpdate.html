@@ -10,20 +10,38 @@
 </script>
 
 <th:block th:with="notice=${list[0]}, logged_user=${#authentication.principal.user}" th:if="${list} and ${#lists.size(list) > 0}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" /><!--Summernote css-->
-    <script type="text/javascript" src="cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script><!--Summernote js-->
+        <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/fragments.css}">
+        <link rel="stylesheet" th:href="@{/css/vvineStyle.css}">
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script th:src="@{/js/noticeUpdate.js}"></script>
-    <title>공지수정</title>
-</head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script th:src="@{/js/vvineFunc/vendor/bootstrap.min.js}"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+        <script th:src="@{/js/vvineFunc/easing.min.js}"></script>
+        <script th:src="@{/js/vvineFunc/hoverIntent.js}"></script>
+        <script th:src="@{/js/vvineFunc/superfish.min.js}"></script>
+        <script th:src="@{/js/vvineFunc/jquery.ajaxchimp.min.js}"></script>
+        <script th:src="@{/js/vvineFunc/jquery.magnific-popup.min.js}"></script>
+        <script th:src="@{/js/vvineFunc/owl.carousel.min.js}"></script>
+        <script th:src="@{/js/vvineFunc/jquery.sticky.js}"></script>
+        <script th:src="@{/js/vvineFunc/jquery.nice-select.min.js}"></script>
+        <script th:src="@{/js/vvineFunc/parallax.min.js}"></script>
+        <script th:src="@{/js/vvineFunc/mail-script.js}"></script>
+        <script th:src="@{/js/vvineFunc/main.js}"></script>
 
+        <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+        <script th:src="@{/js/noticeUpdate.js}"></script>
+
+        <title>vvine 공지수정</title>
+    </head>
 
 <body>
 
@@ -34,19 +52,33 @@
 
     <div class="container">
         <div>공지사항 수정 페이지</div>
+
         <form name="frm" th:action="@{/notice/noticeUpdate}" method="post" enctype="Multipart/form-data">
             <input type="hidden" name="notice_id" th:value="${notice.notice_id}">
-            <div>
-                <label>작성자 : </label>
-                <div>[[${notice.user.user_name}]]</div>
-            </div>
-            <div>
-                <label for="notice_title">제목 : </label>
-                <input type="text" name="notice_title" id="notice_title" placeholder="제목을 입력하세요" th:value="${notice.notice_title}" required>
-            </div>
-            <div>
-                <label for="notice_content">내용 : </label>
-                <textarea name="notice_content" id="notice_content" rows="10" placeholder="내용을 입력하세요" th:utext="${notice.notice_content}"></textarea>
+
+
+            <div class="section-top-border">
+                <h3 class="mb-20">
+                    <input class="single-input" type="text" name="notice_title" id="notice_title" placeholder="제목을 입력하세요" th:value="${notice.notice_title}" required>
+                </h3>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <blockquote class="generic-blockquote mb-30">
+                            <div class="generic-blockquote-head mb-50">
+                                <div>
+                                    <label class="hidden">작성자 : </label>
+                                    <div>[[${notice.user.user_name}]]</div>
+                                </div>
+                                <div>
+                                    <label class="hidden">작성일 : </label>
+                                    <div>[[${#temporals.format(notice.notice_regdate, 'yyyy-MM-dd')}]]</div>
+                                </div>
+                            </div>
+                            <label class="hidden">내용 : </label>
+                            <textarea class="single-textarea" name="notice_content" id="notice_content" rows="10" placeholder="내용을 입력하세요" th:utext="${notice.notice_content}"></textarea>
+                        </blockquote>
+                    </div>
+                </div>
             </div>
 
             <!-- 기존 첨부파일  목록 (삭제 가능) -->
@@ -54,9 +86,9 @@
                 <div id="delFiles"></div>  <!-- 삭제할 file 의 id 값(들)을 담기위한 div -->
                 <div class="mb-3 mt-3">
                     <label>첨부파일:</label>
-                    <div class="input-group mb-2" th:each="noticeFile : ${notice.fileList}">
-                        <input class="form-control col-xs-3" type="text" readonly th:value="${noticeFile.source }">
-                        <button type="button"  class="btn btn-outline-danger" th:data-fileid-del="${noticeFile.notice_file_id}">삭제</button>
+                    <div class="input-group mb-2" th:each="fileDto : ${notice.fileList}">
+                        <input class="form-control col-xs-3" type="text" readonly th:value="${fileDto.source}">
+                        <button type="button"  class="btn btn-outline-danger" th:data-fileid-del="${fileDto.notice_file_id}">삭제</button>
                     </div>
                 </div>
             </div>
@@ -69,16 +101,18 @@
                     <div id="files">
 
                     </div>
-                    <button type="button" id="btnAdd" class="btn btn-secondary">추가</button>
+                    <button type="button" id="btnAdd" class="genric-btn info radius">추가</button>
                 </div>
             </div>
             <!-- 새로운 첨부파일 추가 -->
 
 
             <!-- 하단 링크 -->
-            <button type="submit" class="btn btn-outline-dark" th:if="${logged_user.user_uid == notice.user.user_uid}">수정완료</button>
-            <button type="button" class="btn btn-outline-dark" onclick="history.back()">이전으로</button>
-            <a class="btn btn-outline-dark" th:href="@{/notice/noticeList(page=${session.page})}">목록</a>
+            <div class="flex-right">
+                <button type="submit" class="genric-btn success circle" th:if="${logged_user.user_uid == notice.user.user_uid}">수정완료</button>
+                <button type="button" class="genric-btn primary circle" onclick="history.back()">이전으로</button>
+                <a class="genric-btn primary circle" th:href="@{/notice/noticeList(page=${session.page})}">목록</a>
+            </div>
             <!-- 하단 링크 -->
 
         </form>

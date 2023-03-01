@@ -4,20 +4,39 @@
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <th:block th:if="${list} and ${#lists.size(list) > 0}" th:with="notice=${list[0]}, logged_user=${#authentication.principal.user}">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script th:inline = "javascript">
-        const conPath = [[${conPath}]];
-        const logged_id = [[${logged_user.user_uid}]];
-    </script>
-    <script th:src="@{/js/noticeDetail.js}"></script>
+        <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{/css/fragments.css}">
+        <link rel="stylesheet" th:href="@{/css/vvineStyle.css}">
 
-    <title>공지사항 상세게시글</title>
-</head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script th:src="@{/js/vvineFunc/vendor/bootstrap.min.js}"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+        <script th:src="@{/js/vvineFunc/easing.min.js}"></script>
+        <script th:src="@{/js/vvineFunc/hoverIntent.js}"></script>
+        <script th:src="@{/js/vvineFunc/superfish.min.js}"></script>
+        <script th:src="@{/js/vvineFunc/jquery.ajaxchimp.min.js}"></script>
+        <script th:src="@{/js/vvineFunc/jquery.magnific-popup.min.js}"></script>
+        <script th:src="@{/js/vvineFunc/owl.carousel.min.js}"></script>
+        <script th:src="@{/js/vvineFunc/jquery.sticky.js}"></script>
+        <script th:src="@{/js/vvineFunc/jquery.nice-select.min.js}"></script>
+        <script th:src="@{/js/vvineFunc/parallax.min.js}"></script>
+        <script th:src="@{/js/vvineFunc/mail-script.js}"></script>
+        <script th:src="@{/js/vvineFunc/main.js}"></script>
+
+        <script th:inline = "javascript">
+            const conPath = [[${conPath}]];
+            const logged_id = [[${logged_user.user_uid}]];
+        </script>
+        <script th:src="@{/js/noticeDetail.js}"></script>
+
+        <title>vvine 공지사항 상세글</title>
+    </head>
 
     <body>
 
@@ -33,16 +52,27 @@
                 <input type="hidden" name="notice_id" th:value="${notice.notice_id}">
             </form>
 
-            <div>
-                <label>작성자 : </label>
-                <div>[[${notice.user.user_name}]]</div>
-            </div>
-            <div>
-                <label>제목 : </label>
-                <div>[[${notice.notice_title}]]</div>
-            </div>
-            <div>
-                <div th:utext="${notice.notice_content}"></div>
+
+            <div class="section-top-border">
+                <h3 class="mb-20">[[${notice.notice_title}]]</h3>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <blockquote class="generic-blockquote mb-30">
+                            <div class="generic-blockquote-head mb-50">
+                                <div>
+                                    <label class="hidden">작성자 : </label>
+                                    <div>[[${notice.user.user_name}]]</div>
+                                </div>
+                                <div>
+                                    <label class="hidden">작성일 : </label>
+                                    <div>[[${#temporals.format(notice.notice_regdate, 'yyyy-MM-dd')}]]</div>
+                                </div>
+                            </div>
+                            <label class="hidden">내용 : </label>
+                            <div class="generic-blockquote-body ml-30">[[${notice.notice_content}]]</div>
+                        </blockquote>
+                    </div>
+                </div>
             </div>
 
             <!--첨부파일 목록-->
@@ -64,10 +94,12 @@
             <!--첨부파일 목록-->
 
             <!-- 하단 링크 -->
-            <a class="btn btn-outline-dark" th:href="@{/notice/noticeUpdate(notice_id=${notice.notice_id})}" th:if="${logged_user.user_uid == notice.user.user_uid}">수정</a>
-            <a class="btn btn-outline-dark" th:href="@{/notice/noticeList(page=${session.page})}">목록</a>
-            <button type="button" class="btn btn-outline-dark" id="btnDel" th:if="${logged_user.user_uid == notice.user.user_uid}">삭제</button>
-            <a class="btn btn-outline-dark" th:href="@{/notice/noticeWrite}" sec:authorize="hasAnyRole('ADMIN')">추가작성</a>
+            <div class="flex-right">
+                <a class="genric-btn success circle" th:href="@{/notice/noticeUpdate(notice_id=${notice.notice_id})}" th:if="${logged_user.user_uid == notice.user.user_uid}">수정</a>
+                <button type="button" class="genric-btn danger circle" id="btnDel" th:if="${logged_user.user_uid == notice.user.user_uid}">삭제</button>
+                <a class="genric-btn primary circle" th:href="@{/notice/noticeList(page=${session.page})}">목록</a>
+                <a class="genric-btn primary circle" th:href="@{/notice/noticeWrite}" sec:authorize="hasAnyRole('ADMIN')">추가작성</a>
+            </div>
             <!-- 하단 링크 -->
 
         </section>
