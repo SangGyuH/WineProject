@@ -31,7 +31,7 @@ function chkEmailConfirm(data, memailconfirm, memailconfirmTxt){
 			//console.log("중복아이디");
 		} else { // 아니면 중복아님
 			emconfirmchk = true;
-			$("#memailconfirmTxt").html("<span id='emconfirmchk'>인증번호 확인 완료</span>")
+			$("#memailconfirmTxt").html("<span id='emconfirmchk'>인증번호가 확인되었습니다</span>")
 			$("#emconfirmchk").css({
 				"color" : "#0D6EFD",
 				"font-weight" : "bold",

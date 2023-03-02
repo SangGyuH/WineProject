@@ -9,63 +9,112 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/fragments.css}">
-</head>
+    <link rel="stylesheet" th:href="@{/css/vvineStyle.css}">
+
+    <script th:src="@{/js/email.js}"></script>
+    <script th:src="@{/js/userChkBox.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script th:src="@{/js/vvineFunc/vendor/bootstrap.min.js}"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBhOdIF3Y9382fqJYt5I_sswSrEw5eihAA"></script>
+    <script th:src="@{/js/vvineFunc/easing.min.js}"></script>
+    <script th:src="@{/js/vvineFunc/hoverIntent.js}"></script>
+    <script th:src="@{/js/vvineFunc/superfish.min.js}"></script>
+    <script th:src="@{/js/vvineFunc/jquery.ajaxchimp.min.js}"></script>
+    <script th:src="@{/js/vvineFunc/jquery.magnific-popup.min.js}"></script>
+    <script th:src="@{/js/vvineFunc/owl.carousel.min.js}"></script>
+    <script th:src="@{/js/vvineFunc/jquery.sticky.js}"></script>
+    <script th:src="@{/js/vvineFunc/jquery.nice-select.min.js}"></script>
+    <script th:src="@{/js/vvineFunc/parallax.min.js}"></script>
+    <script th:src="@{/js/vvineFunc/mail-script.js}"></script>
+    <script th:src="@{/js/vvineFunc/main.js}"></script>
 
     <title>회원탈퇴</title>
-<script th:src="@{/js/email.js}"></script>
-<script th:src="@{/js/userChkBox.js}"></script>
-<script th:src="@{/js/userDeleteChk.js}"></script>
+</head>
+
 
 <body>
-<div id="wrap">
+<div>
     <header>
         <div id="logo"></div>
         <th:block th:insert="~{common/header::header}"></th:block>
     </header>
+    <br><br>
+        <div class="text-center">
+            <h1 class="h3 mb-3 fw-normal">회원탈퇴</h1>
+        </div><br>
 
-    <article>
-        <h2>회원탈퇴</h2>
         <div class="row">
-            <form method="POST" th:action="@{/user/unregister}" id="myform">
-                <div class="form-group mt-3">
-                    <label for="username">아이디</label>
-                    <input type="text" class="form-control" id="username" name="id" th:value="${user.user_id}" readonly>
-                </div>
-                <div class="form-group mt-3">
-                    <label for="name">이름</label>
-                    <input type="text" class="form-control" id="name" name="name" th:value="${user.user_name}" readonly>
+            <form method="POST" th:action="@{/user/unregister}" id="myform" class="text-center">
+
+                <div class="d-flex justify-content-center">
+                    <div class="mt-10 align-self-center">
+                        <span>&emsp;&emsp;&nbsp;&nbsp;&nbsp;아이디&emsp;&emsp;&emsp;</span>
+                    </div>
+                    <div class="border mt-10">
+                        <input type="text" id="username" name="id" class="single-input-primary" th:value="${user.user_id}" disabled readonly>
+                    </div>
                 </div>
 
-                <div class="form-group mt-3">
-                    <label for="lating">등급</label>
-                    <input type="text" class="form-control" id="lating" name="name" sec:authentication="principal.authorities" readonly>
+                <div class="d-flex justify-content-center">
+                    <div class="mt-10 align-self-center">
+                        <span>&emsp;&emsp;&emsp;&nbsp;이름&nbsp;&nbsp;&emsp;&emsp;&emsp;</span>
+                    </div>
+                    <div class="border mt-10">
+                        <input type="text" id="name" name="name" class="single-input-primary" th:value="${user.user_name}" disabled readonly>
+                    </div>
                 </div>
 
-                <div class="form-group mt-3">
-                    <label for="lating">누적포인트</label>
-                    <input type="text" class="form-control" id="point" name="name" th:value="${TODO}" readonly>
+                <div class="d-flex justify-content-center">
+                    <div class="mt-10 align-self-center">
+                        <span>&emsp;&emsp;&emsp;&nbsp;등급&nbsp;&nbsp;&emsp;&emsp;&emsp;</span>
+                    </div>
+                    <div class="border mt-10">
+                        <input type="text" id="lating" name="name" class="single-input-primary" th:value="${#authentication.principal.authorities}" disabled readonly>
+                    </div>
                 </div>
 
-                <div class="input-group mt-3">
-                    <span class="input-group-text">패스워드&emsp;&emsp;&emsp;&ensp;</span>
-                    <input type="password" class="form-control" placeholder="숫자만 사용하여 5~20자리" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="password" name="password" th:value="${user_pw}">
+                <div class="d-flex justify-content-center">
+                    <div class="mt-10 align-self-center">
+                        <span>&emsp;&emsp;&nbsp;누적 포인트&emsp;&ensp;</span>
+                    </div>
+                    <div class="border mt-10">
+                        <input type="text" id="point" name="name" class="single-input-primary" disabled readonly>
+                    </div>
                 </div>
 
-                <div class="input-group mt-3">
-                    <span class="input-group-text">패스워드 재입력</span>
-                    <input type="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="re_password" name="user_repw" th:value="${user_repw}">
+                <div class="d-flex justify-content-center">
+                    <div class="mt-10 align-self-center">
+                        <span>&emsp;&emsp;현재 패스워드&nbsp;&nbsp;&ensp;</span>
+                    </div>
+                    <div class="border mt-10">
+                        <input type="password" id="password" name="password" class="single-input-primary">
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                    <div class="mt-10 align-self-center">
+                        <span>&emsp;패스워드 재입력&emsp;</span>
+                    </div>
+                    <div class="border mt-10">
+                        <input type="password" id="re_password" name="user_repw" class="single-input-primary">
+                    </div>
+                </div>
+                <br>
+
+                <div class="form-group mt-3 d-flex justify-content-center">
+                    <div class=" form-control" style="overflow:auto; width: 350px; height:150px;" disabled readonly>(예시) 누적된 회원 포인트 및 현재 등급은 소멸되며 삭제된 회원 정보는 복구할 수 없습니다. 제13조 (회원탈퇴 및 자격 상실) 1. 회원은 회사에 언제든지 탈퇴를 요청할 수 있으며 회사는 즉시 회원탈퇴 요청을 처리합니다. 다만 재화등의 거래가 완료되지 아니한 경우에는 거래를 완료하여야 하며 거래를 철회하거나 취소하는 경우에는 그로 인한 불이익은 회원이 부담하여야 하고, 회원의 회사에 대한 채무(마이너스 예치금, 마이너스 포인트 등 포함)의 이행이 완료되지 아니한 경우에는 완료될 때까지 회원탈퇴가 제한될 수 있습니다. 2. 회원은 정보제공에 동의한 이후에도 회사가 제휴한 사이트에 회원정보를 제공하는 것을 원하지 않을 경우 언제라도 동의철회를 요청할 수 있습니다. 3. 회원이 다음의 각호에 해당되는 경우 회사는 회원에 대하여 일정한 서비스의 이용을 제한하거나 일정기간 회원의 자격을 정지시킬 수 있습니다. ① 가입 시에 허위 내용을 등록하거나 제8조의 신청거부 사유가 있었음이 밝혀진 경우. ② 회사를 이용하여 구입한 재화·용역 등의 대금, 기타 회사 이용에 관련하여 회원이 부담하는 채무를 기일에 지급하지 않는 경우 ③ 타인의 ID와 비밀번호 또는 그 개인정보를 도용한 경우</div><br>
+                </div>
+                <div class="form-group mt-3 d-flex justify-content-center">
+                    <input type="checkbox" value="회원가입 약관" required> &emsp;위 약관에 동의합니다 (필수)</input>
                 </div>
                 <br><br>
-                <div>
-                    <textarea>누적된 회원 포인트 및 현재 등급은 소멸되며 삭제된 회원 정보는 복구할 수 없습니다.</textarea><br>
-                    <input type="checkbox" value="회원가입 약관" required> 위 약관에 동의합니다</input>
-                </div>
-                <br><br>
 
-                <button type="submit" id="submitBtn" class="w-100 btn btn-lg btn-primary mt-3">회원탈퇴</button>
-                <button type="button" class="w-100 btn btn-lg btn-primary mt-3" onclick="history.back()">뒤로가기</button>
+                <button type="submit" id="submitBtn" class="genric-btn primary circle">회원탈퇴</button>
+                <button type="button" class="genric-btn primary circle" onclick="history.back()">뒤로가기</button>
             </form>
         </div>
     </article>
