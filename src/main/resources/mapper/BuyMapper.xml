@@ -1,0 +1,9 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lec.spring.repository.BuyRepository">
+    <insert id="historySave" parameterType="com.lec.spring.domain.Buy">
+        INSERT INTO tb_buy(user_uid, wine_id, buy_quantity,buy_regdate, wine_paymentKey)
+        VALUES (#{user.user_uid}, #{wine.wine_id}, #{buy_quantity}, now() ,#{wine_paymentKey});
+    </insert>
+</mapper>
