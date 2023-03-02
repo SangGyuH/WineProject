@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lec.spring.repository.WineReviewRepository">
+
+    <select id="searchReviewScore" flushCache="true" resultType="_double">
+        select ifnull(sum(wnrv_reviews) / count(wnrv_reviews), 0) from tb_wine_review
+        where wine_serialkey = #{param1} and wine_type = #{param2};
+    </select>
+
+    <resultMap id="mapUser" type="com.lec.spring.domain.User">
+        <result column="u_user_uid" property="user_uid" />
+        <result column="u_user_id" property="user_id"/>
+    </resultMap>
+    <resultMap id="mapReview" type="com.lec.spring.domain.WineReview">
+        <result column="r_wnrv_id" property="wnrv_id" />
+        <result column="r_wnrv_regdate" property="wnrv_regdate"/>
+        <result column="r_wnrv_reviews" property="wnrv_reviews"/>
+        <result column="r_wnrv_content" property="wnrv_content"/>
+        <result column="r_wine_serialkey" property="wine_serialkey"/>
+        <result column="r_wine_type" property="wine_type"/>
+        <collection property="user" resultMap="mapUser"/>
+    </resultMap>
+
+    <select id="wineCommentList" resultMap="mapReview">
+        SELECT
+            r.wnrv_id "r_wnrv_id",
+            r.wnrv_regdate "r_wnrv_regdate",
+            r.wnrv_reviews "r_wnrv_reviews",
+            r.wnrv_content "r_wnrv_content",
+            r.wine_serialkey "r_wine_serialkey",
+            r.wine_type "r_wine_type",
+            u.user_uid "u_user_uid",
+            u.user_id "u_user_id"
+        FROM tb_wine_review r, tb_user u
+        where r.wine_serialkey = #{param1} and r.wine_type = #{param2} AND u.user_uid = r.user_uid
+        ORDER BY r.wnrv_regdate DESC;
+    </select>
+
+    <insert id="reviewInsert" flushCache="true" parameterType="com.lec.spring.domain.WineReview"
+            keyProperty="wnrv_id" useGeneratedKeys="true" keyColumn="wnrv_id" >
+        INSERT INTO tb_wine_review (user_uid, wnrv_content , wnrv_regdate, wnrv_reviews, wine_serialkey, wine_type)
+        VALUES (2, #{wnrv_content}, now(), #{wnrv_reviews}, #{wine_serialkey}, #{wine_type});
+    </insert>
+
+    <update id="changeReview" flushCache="true" parameterType="com.lec.spring.domain.WineReview">
+        UPDATE tb_wine_review SET wnrv_content = #{wnrv_content} WHERE wnrv_id = #{wnrv_id};
+    </update>
+
+    <delete id="removeReview"  flushCache="true">
+        DELETE FROM tb_wine_review WHERE wnrv_id = #{wnrv_id};
+    </delete>
+
+</mapper>
