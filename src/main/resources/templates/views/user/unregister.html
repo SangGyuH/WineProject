@@ -55,7 +55,7 @@
                         <span>&emsp;&emsp;&nbsp;&nbsp;&nbsp;아이디&emsp;&emsp;&emsp;</span>
                     </div>
                     <div class="border mt-10">
-                        <input type="text" id="username" name="id" class="single-input-primary" th:value="${user.user_id}" disabled readonly>
+                        <input type="text" id="username" name="id" class="single-input-primary" th:value="${user.user_id}"  readonly>
                     </div>
                 </div>
 
@@ -64,7 +64,7 @@
                         <span>&emsp;&emsp;&emsp;&nbsp;이름&nbsp;&nbsp;&emsp;&emsp;&emsp;</span>
                     </div>
                     <div class="border mt-10">
-                        <input type="text" id="name" name="name" class="single-input-primary" th:value="${user.user_name}" disabled readonly>
+                        <input type="text" id="name" name="name" class="single-input-primary" th:value="${user.user_name}"  readonly>
                     </div>
                 </div>
 
@@ -73,7 +73,7 @@
                         <span>&emsp;&emsp;&emsp;&nbsp;등급&nbsp;&nbsp;&emsp;&emsp;&emsp;</span>
                     </div>
                     <div class="border mt-10">
-                        <input type="text" id="lating" name="name" class="single-input-primary" th:value="${#authentication.principal.authorities}" disabled readonly>
+                        <input type="text" id="lating" name="name" class="single-input-primary" th:value="${#authentication.principal.authorities}"  readonly>
                     </div>
                 </div>
 
@@ -82,7 +82,7 @@
                         <span>&emsp;&emsp;&nbsp;누적 포인트&emsp;&ensp;</span>
                     </div>
                     <div class="border mt-10">
-                        <input type="text" id="point" name="name" class="single-input-primary" disabled readonly>
+                        <input type="text" id="point" name="name" class="single-input-primary" th:value="${user.user_point}"  readonly>
                     </div>
                 </div>
 

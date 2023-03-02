@@ -23,7 +23,7 @@ public class User {
     private String user_pw;             //사용자 비밀번호
     @JsonIgnore
     private String user_repw;           //사용자 비밀번호 재확인용
-
+    private String user_point;          //사용자 포인트
 
     private String user_email;          //사용자 이메일
     private String user_phone;          //사용자 휴대폰 번호

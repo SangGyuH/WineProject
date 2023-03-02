@@ -14,8 +14,7 @@ SELECT * FROM tb_wine_review;
 SELECT * FROM tb_write;
 SELECT * FROM tb_write_file;
 SELECT * FROM tb_write_review;
-
-
+            
 -- 기존테이블 삭제
 DELETE FROM tb_user;
 ALTER TABLE tb_user AUTO_INCREMENT = 1;
@@ -44,13 +43,3 @@ DELETE FROM tb_wine_review;
 ALTER TABLE tb_wine_review AUTO_INCREMENT = 1;
 
 DELETE FROM tb_buy;
-
-
-
-
-
-
-
-
-
-

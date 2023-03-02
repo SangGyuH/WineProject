@@ -54,19 +54,19 @@
             <form class="container mt-3 text-center" method="POST" th:action="@{/user/changeInfo}">
                 <div class="d-flex justify-content-center">
                     <div class="mt-10 align-self-center">
-                        <span>&emsp;&emsp;&nbsp;&nbsp;&nbsp;아이디&emsp;&emsp;&emsp;</span>
+                        <span>&emsp;&emsp;&nbsp;&nbsp;&nbsp;아이디&emsp;&emsp;&emsp;&nbsp;</span>
                     </div>
                     <div class="border mt-10">
-                        <input type="text" id="username" name="username" class="single-input-primary" th:value="${user.user_id}" disabled readonly>
+                        <input type="text" id="username" name="username" class="single-input-primary" th:value="${user.user_id}" readonly>
                     </div>
                 </div>
 
                 <div class="d-flex justify-content-center">
                     <div class="mt-10 align-self-center">
-                        <span>&emsp;&emsp;&emsp;&nbsp;이름&nbsp;&nbsp;&emsp;&emsp;&emsp;</span>
+                        <span>&emsp;&emsp;&emsp;&nbsp;이름&nbsp;&nbsp;&emsp;&emsp;&emsp;&nbsp;</span>
                     </div>
                     <div class="border mt-10">
-                        <input type="text" id="name" name="name" class="single-input-primary" th:value="${user.user_name}" disabled readonly>
+                        <input type="text" id="name" name="name" class="single-input-primary" th:value="${user.user_name}" readonly>
                     </div>
                 </div>
 
@@ -76,7 +76,7 @@
 
                 <div class="d-flex justify-content-center">
                     <div class="mt-10 align-self-center">
-                        <span>&emsp;변경할 패스워드&nbsp;&nbsp;</span>
+                        <span>&emsp;변경할 패스워드&nbsp;&nbsp;&nbsp;</span>
                     </div>
                     <div class="border mt-10">
                         <input type="password" id="password" name="password" placeholder="숫자만 사용하여 5~20자리" onblur="this.placeholder = '숫자만 사용하여 5~20자리'" class="single-input-primary">

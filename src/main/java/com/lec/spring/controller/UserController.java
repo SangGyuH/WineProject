@@ -1,9 +1,10 @@
 package com.lec.spring.controller;
 
-import com.lec.spring.config.PrincipalDetails;
 import com.lec.spring.domain.User;
 import com.lec.spring.domain.UserValidator;
+import com.lec.spring.domain.Wine;
 import com.lec.spring.service.UserService;
+import com.lec.spring.service.PurchaseService;
 import com.lec.spring.util.Util;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     private UserService userService;
+
+    @Autowired
+    private PurchaseService purchaseService;
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -128,7 +132,9 @@ public class UserController {
     @RequestMapping("/purchaseList")
     public void purchaseList(Model model){
         User user = Util.getLoggedUser();
+        List<Wine> wineList = purchaseService.getWineListByUseruid(user.getUser_uid());
         model.addAttribute("user", user);
+        model.addAttribute("winelist", wineList);
     }
 
     @GetMapping("/unregister")

@@ -46,7 +46,7 @@
         <br>
             <div class="d-flex justify-content-center" th:text="${user.user_id + '(' + user.user_name + ')' + '님'}"></div>
             <span class="d-flex justify-content-center" sec:authentication="principal.authorities"></span>
-            <div class="d-flex justify-content-center" th:text="${'누적포인트 : '}"></div><br>
+            <div class="d-flex justify-content-center" th:text="${'누적포인트 : ' + user.user_point}"></div><br>
         <div class="d-flex justify-content-center">
         <img src="/img/user_img.jpg" alt="userImg" height="200" width="200"/></div><br><br>
 

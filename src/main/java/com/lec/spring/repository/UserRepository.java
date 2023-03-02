@@ -18,4 +18,6 @@ public interface UserRepository {
     int delete(User user);
 
     int deleteByUserid(String userid);
+
+
 }

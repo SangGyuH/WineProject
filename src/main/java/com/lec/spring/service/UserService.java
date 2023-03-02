@@ -28,8 +28,8 @@ public class UserService {
     }
 
     // username(회원 아이디) 의 user 정보 읽어오기
-    public User findByUsername(String username){
-        return userRepository.findByUsername(username); //findByUserName -> mybatis 가 만들어줌(repository)
+    public User findByUsername(String id){
+        return userRepository.findByUsername(id); //findByUserName -> mybatis 가 만들어줌(repository)
     }
 
     // 특정 username(회원 아이디) 의 회원이 존재하는지 확인
@@ -53,31 +53,20 @@ public class UserService {
         userRepository.save(user);  // 새로 회원 저장. id 값을 user 에 받아온다.
 
         // 신규회원은 ROLE_MEMBER_SILVER 권한 기본적으로 부여하기(-> Authority repository 만들기)
-        Authority auth = authorityRepository.findByName("ROLE_SILVER");
-
-        System.out.println("auth: " + auth);
+//        Authority auth = authorityRepository.findByName("ROLE_SILVER");
+//        System.out.println("auth: " + auth);
 
         // 사용자의 ID와 authority 아이디 꺼낸 후 넣기(회원가입까지 만들기 위함)
         Long user_id = user.getUser_uid();
         System.out.println("user_uid:" + user_id);
-        Long auth_id = auth.getAuthority_id();
-
-        authorityRepository.addAuthority(user_id, auth_id);
+//        Long auth_id = auth.getAuthority_id();
+//        authorityRepository.addAuthority(user_id, auth_id);
 
         return 1;
     }
 
     public int deleteById(String user_id){
         int result;
-
-//        User user = userRepository.findById(id);
-//        if(user != null) {
-//            result = userRepository.delete(user);
-//        }
-
-//        User user = new User();
-//        user.setUser_id(user_id);
-//        result = userRepository.delete(user);
 
         result = userRepository.deleteByUserid(user_id);
 

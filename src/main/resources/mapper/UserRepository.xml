@@ -7,17 +7,22 @@
 
     <sql id="SELECT_BASE">
         SELECT
-            user_uid,
-            user_id,                <!-- User 의 setter -->
-            user_name,
-            user_pw,
-            user_addr1,
-            user_addr2,
-            user_addr3,
-            user_email,
-            user_phone
+            B.user_uid,
+            B.user_id,
+            B.user_name,
+            B.user_pw,
+            B.user_addr1,
+            B.user_addr2,
+            B.user_addr3,
+            B.user_email,
+            B.user_phone,
+        (select
+            A.user_point
+        from
+            tb_point A
+        where A.user_uid = B.user_uid) AS user_point
         FROM
-            tb_user
+            tb_user B
     </sql>
 
     <select id="findById" resultType="com.lec.spring.domain.User">
@@ -50,4 +55,5 @@
     <delete id="deleteByUserid" flushCache="true" parameterType="String">
         DELETE FROM tb_user WHERE user_id = #{user_id}
     </delete>
+
 </mapper>

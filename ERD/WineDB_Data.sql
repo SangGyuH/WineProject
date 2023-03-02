@@ -11,6 +11,10 @@ VALUES
 	('admin', '$2a$10$tlrJg7LySHU.2JdNUZ/aX.mp1435Xa9lxqOW2iy6npTqP1sEoZUXK','관리자', 'admin@gmail.com','01012345678', '서울특별시 강남구 테헤란로 146', '현익빌딩 3층, 4층', '06236')
 ;
 
+-- 임의의 wine과 point 값
+insert into tb_wine (wine_id, wine_winery, wine_name, wine_location, wine_price) value (1, 'a', 'b', 'c', 100);
+insert into tb_point (user_uid, wine_id, user_point) value (1, 1, 100);
+
 -- 샘플 사용자
 INSERT INTO tb_user (user_id, user_pw, user_name, user_email, user_phone, user_addr1, user_addr2, user_addr3)
 VALUES
