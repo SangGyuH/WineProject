@@ -422,20 +422,20 @@
             <div id="info">
                 <span th:utext="${dto.wine_name}"></span><span th:utext="${dto.wine_location}"></span>
             </div>
-            <div id="stock" th:if="${dto.wine_id} and ${dto.wine_count > 0}">
+            <div id="stock" th:if="${dto.wine_id} and ${dto.wine_count > 0}" sec:authorize="isAuthenticated">
                 <div>재고 : <span id="stockTotal" th:utext="${dto.wine_count}"></span></div>
-                <div><span th:utext="${dto.wine_price}"></span>원<input type="button" value="구매" name="buyBtn"></div>
+                <div><span th:utext="${dto.wine_price}"></span>원<input type="button" value="구매" name="buyBtn"  sec:authorize="hasAnyRole('ADMIN','SILVER','GOLD','DIAMOND')"></div>
                 <input type="hidden" name="wine_id" th:value="${dto.wine_id}" />
             </div>
             <div id="stock" th:if="${dto.wine_id == null} or ${dto.wine_count == 0}">
                 <div>재고 : <span id="stockTotal">0</span></div>
-                <div><span></span><input type="button" value="입고 요청"></div>
+                <div sec:authorize="isAuthenticated" ><span></span><input type="button" value="입고 요청"></div>
             </div>
         </article>
-        <article id="review">
-            <form name="reviewForm" id="reviewForm" sec:authorize="hasAnyRole('ADMIN','SILVER','GOLD','DIAMOND')">
-                <input type="hidden" name="wine_type" th:value="${dto.wine_type}" />
-                <input type="hidden" name="wine_serialkey" th:value="${dto.wine_serialkey}" />
+        <article id="review" >
+            <input type="hidden" name="wine_type" th:value="${dto.wine_type}" />
+            <input type="hidden" name="wine_serialkey" th:value="${dto.wine_serialkey}" />
+            <form name="reviewForm" id="reviewForm" sec:authorize="isAuthenticated">
                 <div id="star">
                     <fieldset class="rating">
                         <input type="radio" id="star5" name="rating" value="10" /><label class = "full" for="star5"></label>
@@ -456,23 +456,19 @@
                     <input type="button" name="reviewBtn" value="입력"/>
                 </div>
             </form>
-            <div id="comentList" th:if="${commentList}">
+            <div id="comentList" th:if="${commentList}" >
                 <li th:each="comt : ${commentList}">
                     <div>
-                        <!-- 
-                            th:with="logged_user=${#authentication.principal.user}"
-                            th:if="${logged_user.user_uid == comt.user.user_uid}"
-                        -->
                         <span th:utext="${comt.user.user_id}"></span>
                         <span th:utext="${#temporals.format(comt.wnrv_regdate, 'yyyy-MM-dd HH:mm:ss')}"></span>
-                        <th:block th:with="logged_user = ${#authentication.principal.user}">
-                            <div th:if="${logged_user.user_uid == comt.user.user_uid}"><a class="reviewChange">수정</a><a class="reviewRemove">삭제</a></div>
-                        </th:block>
+                        <div  sec:authorize="isAuthenticated" th:with="user=${#authentication.getPrincipal().getUser()}">
+                            <a class="reviewChange" th:if="${user.user_uid == comt.user.user_uid}">수정</a><a class="reviewRemove" th:if="${user.user_uid == comt.user.user_uid}">삭제</a>
+                        </div>
                     </div>
-                    <div class="starScore"><span class="outer-star"><span class="inner-star"></span></span></div>
-                    <div th:utext="${comt.wnrv_content}"></div>
-                    <input type="hidden" th:value="${comt.wnrv_reviews}" name="userScore" />
-                    <input type="hidden" th:value="${comt.wnrv_id}" name="id" />
+                        <div class="starScore"><span class="outer-star"><span class="inner-star"></span></span></div>
+                        <div th:utext="${comt.wnrv_content}"></div>
+                        <input type="hidden" th:value="${comt.wnrv_reviews}" name="userScore" />
+                        <input type="hidden" th:value="${comt.wnrv_id}" name="id" />
                 </li>
             </div>
             <div id="comentList" th:if="${commentList == null}" th:each="comt : ${commentList}" >평가가 없습니다.</div>
@@ -487,7 +483,7 @@
 <script>
     let $rating;        
     let $content;
-    const $wine_id = $('#stock>input[name=wine_id]').val();
+    const $wine_id = $('input[name=wine_id]').val();
     const $wine_type = $('input[name=wine_type]').val();
     const $wine_serialkey = $('input[name=wine_serialkey]').val();
     const $wine_name = $('#wine>#info>span:nth-child(1)').html();

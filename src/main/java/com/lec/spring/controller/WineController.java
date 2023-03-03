@@ -66,5 +66,11 @@ public class WineController {
         return QryResult.builder().count(wineService.wineBuy(wine_id, quantity)).status("OK").build();
     }
 
+    @GetMapping("/list")
+    public String list(String type,Model model){
+        model.addAttribute("wine_type", type);
+        return "wine/list";
+    }
+
 
 }

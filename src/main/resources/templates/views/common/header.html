@@ -38,13 +38,13 @@
                     <ul class="nav-menu">
                         <li class="menu-has-children"><a th:href="@{/wine/search}" class="sf-with-ul">와인검색</a>
                             <ul id="nav-ul">
-                                <li><a href="#">SEARCH</a></li>
-                                <li><a href="#">RED</a></li>
-                                <li><a href="#">WHITE</a></li>
-                                <li><a href="#">SPARKLING</a></li>
-                                <li><a href="#">ROSE</a></li>
-                                <li><a href="#">DESSERT</a></li>
-                                <li><a href="#">PORT</a></li>
+                                <li><a th:href="@{/wine/search}">SEARCH</a></li>
+                                <li><a th:href="@{/wine/list?type=reds}">RED</a></li>
+                                <li><a th:href="@{/wine/list?type=whites}">WHITE</a></li>
+                                <li><a th:href="@{/wine/list?type=sparkling}">SPARKLING</a></li>
+                                <li><a th:href="@{/wine/list?type=rose}">ROSE</a></li>
+                                <li><a th:href="@{/wine/list?type=dessert}">DESSERT</a></li>
+                                <li><a th:href="@{/wine/list?type=port}">PORT</a></li>
                             </ul>
                         </li>
                         <li>
