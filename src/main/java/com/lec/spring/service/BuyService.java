@@ -24,6 +24,8 @@ public class BuyService {
                 .wine_paymentKey(paymentKey)
                 .build();
         //buyRepository.historySave(buy) <- 이게 정상 작업(>0)이 되었다면 포인트 적립
+        buyRepository.historySave(buy);
+
         return buyRepository.historySave(buy);
     }
 }

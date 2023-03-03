@@ -11,7 +11,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>wine name</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
 
     <style>
         *{
@@ -20,6 +19,7 @@
         #window{
             width: 80%;
             margin: auto;
+            display: flex;
         }
         article{
             box-sizing: border-box;
@@ -84,8 +84,13 @@
             box-sizing: border-box;
             border: none;
             border-radius: 10px;
-            background-color: pink;
+            background-color: white;
             cursor: pointer;
+            border: 1px solid gainsboro;
+            color: #777777;
+            font-size: 15px;
+            letter-spacing: 2px;
+            margin-top: 25px;
         }
 
 
@@ -242,6 +247,8 @@
             opacity: 50%;
             letter-spacing: -1px;
             cursor: pointer;
+            display: inline-block;
+            padding: 0px;
         }
         #comentList>li>div:nth-child(1)>div>a:nth-child(1){}
         #comentList>li>div:nth-child(1)>div>a:nth-child(2){
@@ -334,17 +341,16 @@
         body>div#buyPopup>div:nth-child(2)>span:nth-child(3){   /*price*/
             position: absolute;
             bottom: 10px;
-            font-size: 18px;
-            /* opacity: 80%; */
-            font-weight: bold;
+            font-size: 15px;
+            /* font-weight: bold; */
             color: #585858;
             text-align: right;
             right: 30px;
             letter-spacing: -2px;
-            opacity: 90%;
+            opacity: 60%;
         }
         body>div#buyPopup>div:nth-child(2)>span:nth-child(3)>span, body>div#buyPopup>div:nth-child(3)>span:nth-child(2)>span>span{   /*price*/
-            font-size: 20px;
+            font-size: 18px;
             padding-right: 5px;
             letter-spacing: 1px;
         }
@@ -379,7 +385,7 @@
             font-size: 20px;
             letter-spacing: -2px;
             font-weight: bold;
-            opacity: 80%;
+            opacity: 90%;
         }
         body>div#buyPopup>div:nth-child(3)>span:nth-child(2)>span>span{
             font-size: 35px;
@@ -399,8 +405,17 @@
     <script th:inline="javascript">
         const conPath = [[${conPath}]];
     </script>
+    <!-- css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.min.css"/>
+    <link rel="shortcut icon" th:href="@{/img/favicon.ico}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/common.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/fragments.css}">
+    <link rel="stylesheet" th:href="@{/css/vvineStyle.css}">
+    <!-- js -->
 </head>
 <body>
+    <!--/* 인증 헤더 */-->
+    <th:block th:insert="~{common/header::header}"></th:block>
     <div id="window">
         <article id="wine">
             <img th:src="${dto.wine_img}">
@@ -418,7 +433,7 @@
             </div>
         </article>
         <article id="review">
-            <form name="reviewForm" id="reviewForm">
+            <form name="reviewForm" id="reviewForm" sec:authorize="hasAnyRole('ADMIN','SILVER','GOLD','DIAMOND')">
                 <input type="hidden" name="wine_type" th:value="${dto.wine_type}" />
                 <input type="hidden" name="wine_serialkey" th:value="${dto.wine_serialkey}" />
                 <div id="star">
@@ -444,9 +459,15 @@
             <div id="comentList" th:if="${commentList}">
                 <li th:each="comt : ${commentList}">
                     <div>
+                        <!-- 
+                            th:with="logged_user=${#authentication.principal.user}"
+                            th:if="${logged_user.user_uid == comt.user.user_uid}"
+                        -->
                         <span th:utext="${comt.user.user_id}"></span>
                         <span th:utext="${#temporals.format(comt.wnrv_regdate, 'yyyy-MM-dd HH:mm:ss')}"></span>
-                        <div><a class="reviewChange">수정</a><a class="reviewRemove">삭제</a></div>
+                        <th:block th:with="logged_user = ${#authentication.principal.user}">
+                            <div th:if="${logged_user.user_uid == comt.user.user_uid}"><a class="reviewChange">수정</a><a class="reviewRemove">삭제</a></div>
+                        </th:block>
                     </div>
                     <div class="starScore"><span class="outer-star"><span class="inner-star"></span></span></div>
                     <div th:utext="${comt.wnrv_content}"></div>
@@ -457,6 +478,7 @@
             <div id="comentList" th:if="${commentList == null}" th:each="comt : ${commentList}" >평가가 없습니다.</div>
         </article> 
     </div>
+    <footer><th:block th:insert="~{common/footer::footer}"></th:block></footer>
 </body>
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -468,11 +490,11 @@
     const $wine_id = $('#stock>input[name=wine_id]').val();
     const $wine_type = $('input[name=wine_type]').val();
     const $wine_serialkey = $('input[name=wine_serialkey]').val();
-    const $wine_name = $('#wine>#info>span:nth-child(1)').html();    
+    const $wine_name = $('#wine>#info>span:nth-child(1)').html();
     
     $(function(){
         //구매내역 등록
-        const buyHistorySave = function(user_uid, wine_id, quantity, paymentKey){
+        const buyHistorySave = function(user_uid, wine_id, quantity, paymentKey, totalAmount){
             $.ajax({
                 type: "POST",
                 url: conPath + "/buy/historySave",
@@ -481,16 +503,18 @@
                     "wine_id" : wine_id,
                     "quantity" : quantity,
                     "paymentKey" : paymentKey,
+                    "totalAmount" : totalAmount,
                 },
                 cache: false,
                 success: function(data, status, xhr){
                     if(status == "success"){
                         if(data.status !== "OK"){
-                            alert(data.status); return }
-                        alert("buy history 등록 성공!")
+                            alert(data.status); return 
+                        }                        
                     }
                 },
             });
+            location.reload();
         }
         //Wine DB -> 구매로 인한 wine_count 변경
         const buyWine = function(id, quantity){
@@ -511,7 +535,7 @@
             });
         }
         //결제 진행
-        const payment = function(data){
+        const payment = function(data, number){
             $.ajax({
                 type: 'POST',
                 cache: false,
@@ -528,8 +552,10 @@
                 xhr.setRequestHeader("Content-Type", "application/json");
                 },
                 success:function(data) {    //결제 완료
-                    console.log(data);
                     if(data) alert("결제 되었습니다.");
+                    (data.status === "DONE")? //정상적으로 결제 완료
+                            buyHistorySave(/*TODO*/2, $wine_id, number, data.paymentKey, data.totalAmount) :   //구매 내역 DB 등록 + point 등록
+                            alert("결제가 비정상적으로 종료되었습니다.");
                 },
                 error:function(request,status,error){
                     console.log("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
@@ -539,7 +565,6 @@
         }
         //결제 버튼
         const payBtn = function(price, number){
-            // const customerKey = 'D3IzhAjdcelyBxb-aqj_A';    //사용자 ID
             const clientKey = 'test_ck_lpP2YxJ4K870k2p4lXJ3RGZwXLOb';
             const tossPayments = TossPayments(clientKey) // 클라이언트 키로 초기화하기
             let temp_id = Date().split(/[:, ]/);
@@ -554,16 +579,14 @@
                 customerName: '박토스', //사용자 이름
             })
             .then(function (data) { // 결제 요청 성공 처리
+                console.log(data)
                 if(data.paymentKey){    //결제 대기
                     try {                        
                         buyWine($wine_id, number);  //DB
-                        payment(data);              //결제진행    
-                        buyHistorySave(2, $wine_id, number, data.paymentKey);   //구매 내역 DB 등록
+                        payment(data, number);      //결제진행                        
                     } catch (error) {
                         alert(error + ": 결제오류");
                     }
-                    confirm('마이페이지로 이동하시겠습니까?')? 
-                        /*TODO 마이페이지 이동*/ location.reload() : location.reload();
                 }
             })
             .catch(function (error) {
@@ -655,6 +678,9 @@
                         let $id = $(this).parent().parent().siblings('input[name=id]').val();
                         confirm('삭제하시겠습니까?') && reviewDelete($id);            
                     })
+                    $('.rating > label').mouseover(function(){ $('#star>div').html($(this).prev().val()); });
+                    $('.rating > label').mouseout(function(){ $rating && $('#star>div').html($rating); });
+                    $('.rating > label').click(function(){ $rating = $(this).prev().val(); });
                 },
             });
             //
@@ -740,7 +766,7 @@
                             if(data.status !== "OK"){
                                 alert(data.status);
                                 return;
-                            }                            
+                            }                     
                             resetList($wine_type, $wine_serialkey);
                             $(this).siblings('input[type=text]').val("");
                         }
@@ -755,8 +781,6 @@
             const $wineLocation = $('#window>#wine>#info>span:nth-child(2)').html();
             const $stockTotal = $('#window>#wine>#stock>div:nth-child(1)>#stockTotal').html();
             const $stockPrice = $('#window>#wine>#stock>div:nth-child(2)>span').html();
-
-            //스크롤 고정
             
             //화면 검정 불투명
             $('body').prepend('<div id="windowBlack"></div>');
@@ -781,7 +805,7 @@
             $buyDiv.html(`
                 <span>수량<select></select></span>
                 <span>결제금액<span></span></span>
-                <input type="button" name="payBtn" value="구매" />
+                <input type="button" name="payBtn" value="결제" />
             `);
             //
             for(i = 1; i <= $stockTotal; i++ ) {$buyDiv.children('span').children('select').append(`<option value="${i}">${i}</option>`);}
@@ -790,6 +814,9 @@
             $buyDiv.children('span').children('span').children('span').html($('#buyPopup>div:nth-child(3)>span>select option:selected').val() * $stockPrice);
             $buyDiv.children('span').children('select').change(function(){
                 const number = $('#buyPopup>div:nth-child(3)>span>select option:selected').val();
+                $('#buyPopup > div:nth-child(3) > span:nth-child(2) > span > span').fadeOut(0);
+                $('#buyPopup > div:nth-child(3) > span:nth-child(2) > span > span').fadeIn(100);
+                
                 $buyDiv.children('span').children('span').children('span').html(number * $stockPrice);
             });
 
@@ -811,13 +838,15 @@
                                 alert(data.status + ": 재고 수량이 부족합니다."); return }
                             else if(data.status !== "OK"){
                                 alert(data.status); return }
-                            // buyHistorySave(2, 4, 1, "testtest12345654321");
-                            payBtn($stockPrice, number)
-                               
+
+                            try { 
+                                payBtn($stockPrice, number); 
+                            } catch (error) { 
+                                alert(error); }
                         }
                     },
                 });
-                
+
                 $('body>div#windowBlack').remove();
                 $('body>div#buyPopup').remove();
             });
