@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="con">
+    </div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(function(){
+        let $wine_type = 'whites';
+
+        $.ajax({
+            type: "GET",
+            url: "https://api.sampleapis.com/wines/" + $wine_type,
+            data: {},
+            success: function(result) {
+                switch ($wine_type) {
+                    case "reds": $wine_type = "red"; break;
+                    case "whites": $wine_type = "white"; break;
+                }
+                result.forEach(el => {                    
+                    
+                    $('#con').append(`<li>
+                    INSERT INTO tb_wine (wine_serialkey, wine_winery, wine_name, wine_location, wine_img, wine_regdate, wine_price,	wine_count, wine_type)
+                    VALUES
+                        (${el.id}, "${el.winery}", "${el.wine}", "${el.location.replace("\n·\n", "_")}", "${el.image}", now(), ${Math.floor((Math.random() * 100) + 1) * 1000}, ${Math.floor((Math.random() * 10) + 1)}, "${$wine_type}");
+                    </li>`)
+                })
+                
+            },
+        });
+
+
+    });
+</script>
+</html>

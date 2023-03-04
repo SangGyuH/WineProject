@@ -1,0 +1,185 @@
+
+  #resultList{
+      margin: 50px auto 0px;
+      padding: 15px 0px;
+      border-top: 1px solid;
+      text-align: center;
+      max-width: 960px;
+  }
+  #resultList>div{
+      font-size: 12px;
+      text-align: left;
+      margin-left: 20px;
+      opacity: 80%;
+  }
+  #resultList>div>span{
+      font-weight: bold;
+  }
+  /* #resultList>li:hover>span>img{
+      filter: contrast(100%);
+  }
+  #resultList>li:hover>span:nth-child(2){
+      font-style: italic;
+  } */
+  #resultList>li{
+      box-sizing: border-box;
+      display: inline-block;
+      width: 285px;
+      height: 450px;
+      padding: 15px 0px;
+      margin: 30px 10px;
+      overflow: overlay;
+      border-bottom: 1px gainsboro solid;
+      position: relative;
+  }
+  #resultList>li>span{
+      display: block;
+      box-sizing: border-box;
+  }
+  #resultList>li>span>img{        
+      /* border: 1px gainsboro solid; */
+      height: 280px;
+      display: block;
+      margin: 10px auto;
+      /* filter: contrast(70%); */
+  }
+  #resultList>li>span:nth-child(1){
+      height: 300px;
+      
+  }
+  #resultList>li>span:nth-child(2){
+      font-size: 15px;
+  }
+  #resultList>li>span:nth-child(3){
+      font-size: 12px;
+  }
+  #resultList>li>span:nth-child(3)>a{
+    display: inline-block;
+  }
+  #resultList>li>span:nth-child(3)>a:nth-child(2){
+      padding-left: 5px;
+      opacity: 50%;
+  }
+  #resultList>li>div:hover{
+      opacity: 100%;
+  }
+  #resultList>li>div{
+      background: rgb(0 0 0 / 60%);
+      width: 285px;
+      height: -webkit-fill-available;
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      opacity: 0%;
+      cursor: pointer;
+  }
+  #resultList>li>div>span{
+      display: block;
+      color: white;
+  }
+  #resultList>li>div>span:nth-child(1){
+      margin-top: 135px;
+      font-size: 25px;
+      font-weight: bold;
+      padding: 10px 0px;
+      letter-spacing: 3px;
+  }
+  #resultList>li>div>span:nth-child(1)>a{}
+  #resultList>li>div>span:nth-child(2){
+      font-size: 15px;
+  }
+  #resultList>li>div>span:nth-child(1) > a > i{
+      font-size: 20px;
+      margin-left: -25px;
+      padding-right: 5px;
+      color: #b68834;
+  }
+  #resultList>li>div>a{
+    color: white;
+    width: 100px;
+    margin: 30px auto 0px;
+    padding: 0px;
+    border: 1px solid gainsboro;
+  }
+  /* page list */
+  #pageList{
+      display: block;
+      width: 50%;
+      margin: 20px auto;
+      text-align: center;
+  }
+  #pageList>*{
+      text-align: center;
+  }
+  #pageList>span{
+      cursor: pointer;
+  }
+  #pageList>div{
+      width: 75%;
+      padding: 10px 0px;
+      display: inline-block;
+  }
+  #pageList>div>li{
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      margin: 0px 5px;
+      cursor: pointer;
+      opacity: 70%;
+  }
+
+  /* form */
+  form{}
+  form>#search{
+    width: 960px;
+    margin: auto;
+    padding-top: 30px;
+  }
+  form>#search>#wineTypeBtn{
+    width: fit-content;
+    margin: 0px auto 10px;
+  }
+  form>#search>#wineTypeBtn>input:first-child{
+      margin-left: 10px;
+  }
+  form>#search>#wineTypeBtn>input{
+    margin-left: 40px;
+    margin-right: 5px;
+  }
+  form>#search>div:nth-child(2){
+    display: block;
+    height: 30px;
+    width: fit-content;
+    margin: auto;
+  }
+  form>#search>div>select,
+  form>#search>div>input[name='searchContent'], 
+  form>#search>div>select[name='selectLocation'],
+  form>#search>div>input[type='button']{
+    height: 30px;
+    border: 1px solid gainsboro;
+    float: left;
+}
+form>#search>div>select{
+    display: inline-block;
+    width: 70px;
+    padding-left: 3px;    
+    border-radius: 5px 0px 0px 5px;
+  }
+  form>#search>div>input[name='searchContent'], form>#search>div>select[name='selectLocation']{
+    width: 300px;
+    padding-left: 10px;    
+    border-left: none;
+    outline: none;
+  }
+  #search>div>select[name=selectLocation]{
+    display: none;  
+  }
+  
+  form>#search>div>input[type='button']{
+    width: 70px;
+    box-sizing: border-box;
+    border: none;
+    background: gainsboro;
+    border-radius: 0px 10px 10px 0px;
+  }

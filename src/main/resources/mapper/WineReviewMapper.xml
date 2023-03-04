@@ -41,7 +41,7 @@
     <insert id="reviewInsert" flushCache="true" parameterType="com.lec.spring.domain.WineReview"
             keyProperty="wnrv_id" useGeneratedKeys="true" keyColumn="wnrv_id" >
         INSERT INTO tb_wine_review (user_uid, wnrv_content , wnrv_regdate, wnrv_reviews, wine_serialkey, wine_type)
-        VALUES (2, #{wnrv_content}, now(), #{wnrv_reviews}, #{wine_serialkey}, #{wine_type});
+        VALUES (#{user.user_uid}, #{wnrv_content}, now(), #{wnrv_reviews}, #{wine_serialkey}, #{wine_type});
     </insert>
 
     <update id="changeReview" flushCache="true" parameterType="com.lec.spring.domain.WineReview">

@@ -6,4 +6,7 @@
         INSERT INTO tb_point (user_uid, wine_id, user_point, regdate)
         VALUES (#{user.user_uid}, #{wine.wine_id}, #{user_point}, now());
     </insert>
+    <select id="pointByUid" resultType="int">
+        SELECT ifnull(sum(user_point), 0) AS "userPoint" FROM tb_point WHERE user_uid = #{param1};
+    </select>
 </mapper>

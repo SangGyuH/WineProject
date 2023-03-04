@@ -221,6 +221,9 @@ ALTER TABLE tb_wine_review ADD COLUMN wine_serialkey int(4) NOT NULL;
 ALTER TABLE tb_wine_review ADD COLUMN wine_type varchar(30) NOT NULL;
 
 ALTER TABLE tb_buy ADD COLUMN wine_paymentKey varchar(100) NOT NULL;
+ALTER TABLE tb_wine MODIFY COLUMN wine_location varchar(100) NOT NULL;
+ALTER TABLE tb_wine MODIFY COLUMN wine_name varchar(100) NOT NULL;
+
 
 
 

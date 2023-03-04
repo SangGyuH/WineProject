@@ -2,6 +2,7 @@ package com.lec.spring.service;
 
 import com.lec.spring.domain.QryResult;
 import com.lec.spring.domain.QryResult_WineReview;
+import com.lec.spring.domain.User;
 import com.lec.spring.domain.WineReview;
 import com.lec.spring.repository.WineReviewRepository;
 import org.apache.ibatis.session.SqlSession;
@@ -29,10 +30,10 @@ public class WineReviewService {
                 .status("OK")
                 .build();
     }
-    public QryResult reviewInsert(String user_id, String wnrv_content, Integer wnrv_reviews, Integer wine_serialkey, String wine_type){
+    public QryResult reviewInsert(Long user_uid, String wnrv_content, Integer wnrv_reviews, Integer wine_serialkey, String wine_type){
         /*TODO : user_id로 user_uid 가져오기*/
         WineReview review = WineReview.builder()
-//                .user(User.builder().user_id(user_id).user_uid(user_uid).build())
+                .user(User.builder().user_uid(user_uid).build())
                 .wnrv_content(wnrv_content)
                 .wnrv_reviews(wnrv_reviews)
                 .wine_serialkey(wine_serialkey)

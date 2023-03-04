@@ -28,6 +28,7 @@ public class CustomLoginSuccessHandler extends SavedRequestAwareAuthenticationSu
         System.out.println("username: " + userDetails.getUsername());
         System.out.println("password: " + userDetails.getPassword());
         System.out.println("user authority : " + userDetails.getAuthorities());
+        request.getSession().setAttribute("user_uid", userDetails.getUser().getUser_uid());
         List<String> roleNames = new ArrayList<>();   // 권한이름들
         authentication.getAuthorities().forEach(authority -> {
             roleNames.add(authority.getAuthority());

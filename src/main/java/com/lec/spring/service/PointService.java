@@ -49,4 +49,16 @@ public class PointService {
         return pointRepository.pointInsert(point);
     }
 
+    public int pointCut(Long po, Long user_uid, Long wine_id){
+        UserPoint point = UserPoint.builder()
+                .user(User.builder().user_uid(user_uid).build())
+                .wine(Wine.builder().wine_id(wine_id).build())
+                .user_point(po)
+                .build();
+        return pointRepository.pointInsert(point);
+    }
+    public int pointByUid(Long user_uid){
+        return pointRepository.pointByUid(user_uid);
+    }
+
 }
