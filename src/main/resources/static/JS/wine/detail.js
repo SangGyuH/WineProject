@@ -129,7 +129,8 @@ $(function(){
         const tossPayments = TossPayments(clientKey) // 클라이언트 키로 초기화하기
         let temp_id = Date().split(/[:, ]/);
         let orderID = "";
-        console.log($point);
+        $totalAmount || ($totalAmount = number * $stockPrice);
+        console.log(`payBtn_$totalAmount = ${$totalAmount}`);
         for(i = 0; i < 7; i++)  orderID += temp_id[i];
         tossPayments
         .requestPayment('카드',{
@@ -141,7 +142,7 @@ $(function(){
         })
         .then(function (data) { // 결제 요청 성공
             if(data.paymentKey){    //결제 대기
-                try {                        
+                try {
                     buyWine($wine_id, number);  //DB
                     payment(data, number);      //결제진행
                 } catch (error) {
@@ -159,7 +160,7 @@ $(function(){
 
     }
     const resetList = function(wine_type, wine_serialkey){
-        
+
         $.ajax({
             type: "POST",
             url: conPath + "/review/list",
@@ -173,12 +174,12 @@ $(function(){
                     if(data.status !== "OK"){
                         alert(data.status);
                         return;
-                    }                            
+                    }
                 }
                 let reviewList = data.reviews;
                 let reviewStr = [];
                 for (const review of reviewList) {
-                    let out = 
+                    let out =
                     `<li>
                         <div>
                             <span>${review.user.user_id}</span>
@@ -239,7 +240,7 @@ $(function(){
                 });
                 $('.reviewRemove').on('click',function(){
                     let $id = $(this).parent().parent().siblings('input[name=id]').val();
-                    confirm('삭제하시겠습니까?') && reviewDelete($id);            
+                    confirm('삭제하시겠습니까?') && reviewDelete($id);
                 })
                 $('.rating > label').mouseover(function(){ $('#star>div').html($(this).prev().val()); });
                 $('.rating > label').mouseout(function(){ $rating && $('#star>div').html($rating); });
@@ -247,7 +248,7 @@ $(function(){
             },
         });
         //
-        
+
     }
     const reviewUpdate = function(id, content){
         $.ajax({
@@ -288,7 +289,7 @@ $(function(){
         let $point = Number.parseInt($('#point>input[type=number]').val());
         $point || ($point = 0);
         $totalAmount = $price - $point
-        $('#total>span>span').html(moneyFormat($totalAmount));            
+        $('#total>span>span').html(moneyFormat($totalAmount));
     }
     //
     $('.rating > label').mouseover(function(){ $('#star>div').html($(this).prev().val()); });
@@ -297,7 +298,7 @@ $(function(){
 
     //review 수정 Btn
     $('.reviewChange').on('click',function(){
-        let $id = $(this).parent().parent().siblings('input[name=id]').val();     
+        let $id = $(this).parent().parent().siblings('input[name=id]').val();
         if($(this).html() == "수정"){
             $content = $(this).parent().parent().siblings('div').next().html();    //바뀌기 전
             //div:content
@@ -316,7 +317,7 @@ $(function(){
     //review 삭제 Btn
     $('.reviewRemove').on('click',function(){
         let $id = $(this).parent().parent().siblings('input[name=id]').val();
-        confirm('삭제하시겠습니까?') && reviewDelete($id);            
+        confirm('삭제하시겠습니까?') && reviewDelete($id);
     })
     //review 등록 Btn
     $('#coment>input[name=reviewBtn]').on('click',function(){
@@ -339,7 +340,7 @@ $(function(){
                         if(data.status !== "OK"){
                             alert(data.status);
                             return;
-                        }                     
+                        }
                         resetList($wine_type, $wine_serialkey);
                         $(this).siblings('input[type=text]').val("");
                     }
@@ -352,7 +353,7 @@ $(function(){
         const $wineName = $('#window>#wine>#info>span:nth-child(1)').html();
         const $wineLocation = $('#window>#wine>#info>span:nth-child(2)').html();
         const $stockTotal = $('#window>#wine>#stock>div:nth-child(1)>#stockTotal').html();
-        
+
 
         //화면 검정 불투명
         $('body').prepend('<div id="windowBlack"></div>');
@@ -361,7 +362,7 @@ $(function(){
         let left = ($(window).width() - $('body>div#buyPopup').width()) / 2;
         $('body>div#buyPopup').css('left', `${left}px`);
         $('body>div#buyPopup').append(`<div></div><div></div><div></div>`);
-        
+
         //  content
         const $imgDiv = $('body>div#buyPopup>div:nth-child(1)');
         const $infoDiv = $('body>div#buyPopup>div:nth-child(2)');
@@ -395,14 +396,14 @@ $(function(){
                     //
                     for(i = 1; i <= $stockTotal; i++ ) {$buyDiv.children('span').children('select').append(`<option value="${i}">${i}</option>`);}
                     $buyDiv.children('span').children('span').html(`원`);
-                    $buyDiv.children('span').children('span').prepend('<span></span>');                        
-                    
+                    $buyDiv.children('span').children('span').prepend('<span></span>');
+
                     $buyDiv.children('span').children('span').children('span').html(moneyFormat($('#buyPopup>div:nth-child(3)>span>select option:selected').val() * $stockPrice));
                     $buyDiv.children('span').children('select').change(function(){
                         const number = $('#buyPopup>div:nth-child(3)>span>select option:selected').val();
                         $('#buyPopup > div:nth-child(3) > span:nth-child(2) > span > span').fadeOut(0);
                         $('#buyPopup > div:nth-child(3) > span:nth-child(2) > span > span').fadeIn(300);
-                        
+
                         $buyDiv.children('span').children('span').children('span').html(moneyFormat( (number * $stockPrice)));
                         totalAmountChange();
                     });
@@ -415,7 +416,8 @@ $(function(){
                     $('input[name=payBtn]').click(function(){
                         const number = $('#buyPopup>div:nth-child(3)>span>select option:selected').val();
                         $point = Number.parseInt($('#point>input[type=number]').val());
-                        
+                        $point || ($point = 0);
+                        console.log(`payBtn_$point0 = ${$point}`);
                         $.ajax({
                             type: "POST",
                             url: conPath + "/wine/stockCheck",
@@ -431,7 +433,9 @@ $(function(){
                                         alert(data.status + ": 재고 수량이 부족합니다."); return }
                                     else if(data.status !== "OK"){
                                         alert(data.status); return }
-                                    try { 
+                                    try {
+                                        console.log(`payBtn_$point1 = ${$point}`);
+                                        console.log(`payBtn_number = ${number}`);
                                         payBtn(number); 
                                     } catch (error) { 
                                         alert(error); }
