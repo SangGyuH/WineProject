@@ -10,7 +10,7 @@
         <div class="container" id="headercontainer">
             <div class="row align-items-center justify-content-between d-flex">
                 <div id="logo">
-                    <a class="navbar-brand" th:href="@{/vvine}"><img src="/img/wine_test_img.jpg" alt="" width="160" height="120"/></a>
+                    <a class="navbar-brand" th:href="@{/vvine}"><img src="/img/vvine_logo.png" alt="" width="160" height="120"/></a>
                 </div>
                 <!-- 로그인 안했을때는 로그인 form 보여주기 -->
                 <div class="d-flex flex-row-reverse">
@@ -26,7 +26,7 @@
                                 <span sec:authorize="hasRole('SILVER')">SILVER/</span>
                                 <span sec:authorize="hasRole('GOLD')">GOLD/</span>
                                 <span sec:authorize="hasRole('DIAMOND')">DIAMOND/</span>
-                                <a th:href="@{/user/mypage}"><span TODO="">[[${user.user_id}]]([[${user.user_name}]])</span> 님</a>
+                                <a th:href="@{/user/mypage}"><span TODO="">[[${user.user_id}]]([[${user.user_name}]]) 님</span> </a>
                             </span>
                             <span><button class="genric-btn primary-border circle" type="submit">Logout</button></span>
                     </span>

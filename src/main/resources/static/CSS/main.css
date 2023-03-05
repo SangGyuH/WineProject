@@ -581,6 +581,11 @@ td, th {
 .hidden {
     display : none;
 }
+.hidden_gone{
+    position:fixed;
+    top:-9999px;
+}
+
 
 .transition {
   -webkit-transition: all 0.3s ease 0s;
@@ -2764,5 +2769,6 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 .switch-wrap p {
   margin: 0;
+  width: 150px;
 }
 

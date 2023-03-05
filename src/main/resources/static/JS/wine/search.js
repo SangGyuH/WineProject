@@ -204,9 +204,30 @@ $(function(){
         });
     });
 
+    $(".chkbox").click(function(){
+        $("input:checkbox[class='chkbox']").prop("checked", false);
+        $(this).prop("checked", true);
+        var chkid = $(this).attr("id");
+        $("input:radio[name='wine_type']").prop("checked", false);
+
+        switch(chkid){
+            case "primary-radio-red" : $("#wineTypeBtn > input:radio[value='reds']").prop("checked" , true); break;
+            case "primary-radio-white" : $("#wineTypeBtn > input:radio[value='whites']").prop("checked" , true); break;
+            case "primary-radio-sparkling" : $("#wineTypeBtn > input:radio[value='sparkling']").prop("checked" , true); break;
+            case "primary-radio-rose" : $("#wineTypeBtn > input:radio[value='rose']").prop("checked" , true); break;
+            case "primary-radio-dessert" : $("#wineTypeBtn > input:radio[value='dessert']").prop("checked" , true); break;
+            case "primary-radio-port" : $("#wineTypeBtn > input:radio[value='port']").prop("checked" , true); break;
+        }
+    });
+
+
     $(document).keypress(function(e) {
             if (e.keyCode == 13){ e.preventDefault(); }
     });
 
-    locationChange();        
+    locationChange();
+
+
+
+
 });

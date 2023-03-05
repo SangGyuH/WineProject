@@ -40,14 +40,61 @@
     <FORM method="get" name="searchFrom">
         <div id="search">
             <div id="wineTypeBtn">
-                <input type="radio" name="wine_type" value="reds" checked/>RED
-                <input type="radio" name="wine_type" value="whites"/>WHITE
-                <input type="radio" name="wine_type" value="sparkling"/>SPARKLING
-                <input type="radio" name="wine_type" value="rose"/>ROSE
-                <input type="radio" name="wine_type" value="dessert"/>DESSERT
-                <input type="radio" name="wine_type" value="port"/>PORT
+                <input type="radio" class="hidden_gone" name="wine_type" value="reds" checked/>
+                <input type="radio" class="hidden_gone" name="wine_type" value="whites"/>
+                <input type="radio" class="hidden_gone" name="wine_type" value="sparkling"/>
+                <input type="radio" class="hidden_gone" name="wine_type" value="rose"/>
+                <input type="radio" class="hidden_gone" name="wine_type" value="dessert"/>
+                <input type="radio" class="hidden_gone" name="wine_type" value="port"/>
+
+                <div class="switch-wrap d-flex justify-content-between">
+                    <p>RED</p>
+                    <div class="primary-radio">
+                        <input type="checkbox" id="primary-radio-red" class="chkbox">
+                        <label for="primary-radio-red"></label>
+                    </div>
+                </div>
+                <div class="switch-wrap d-flex justify-content-between">
+                    <p>WHITE</p>
+                    <div class="primary-radio">
+                        <input type="checkbox" id="primary-radio-white" class="chkbox">
+                        <label for="primary-radio-white"></label>
+                    </div>
+                </div>
+                <div class="switch-wrap d-flex justify-content-between">
+                    <p>SPARKLING</p>
+                    <div class="primary-radio">
+                        <input type="checkbox" id="primary-radio-sparkling" class="chkbox">
+                        <label for="primary-radio-sparkling"></label>
+                    </div>
+                </div>                
+                <div class="switch-wrap d-flex justify-content-between">
+                    <p>ROSE</p>
+                    <div class="primary-radio">
+                        <input type="checkbox" id="primary-radio-rose" class="chkbox">
+                        <label for="primary-radio-rose"></label>
+                    </div>
+                </div>
+                <div class="switch-wrap d-flex justify-content-between">
+                    <p>DESSERT</p>
+                    <div class="primary-radio">
+                        <input type="checkbox" id="primary-radio-dessert" class="chkbox">
+                        <label for="primary-radio-dessert"></label>
+                    </div>
+                </div>
+                <div class="switch-wrap d-flex justify-content-between">
+                    <p>PORT</p>
+                    <div class="primary-radio">
+                        <input type="checkbox" id="primary-radio-port" class="chkbox">
+                        <label for="primary-radio-port"></label>
+                    </div>
+                </div>
+
+
             </div>
-            <div>
+
+
+            <div class="searchresult">
                 <select name="searchType">
                     <option value="name" name="">이름</option>
                     <option value="location">나라</option>

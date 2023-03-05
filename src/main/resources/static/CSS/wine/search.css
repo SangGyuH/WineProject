@@ -183,3 +183,29 @@ form>#search>div>select{
     background: gainsboro;
     border-radius: 0px 10px 10px 0px;
   }
+
+/* wine search 추가 디자인 <- 별로면 아래전체 삭제해주세요 */
+  .searchresult > #searchBtn{
+    font-family : "Poppins", sans-serif;
+    background-color: #f696aa !important;
+    color: #fff;
+    font-family : "Poppins", sans-serif !important;
+  }
+
+  .searchresult > #searchBtn:hover{
+    font-weight: bold;
+    background-color: #f8cbd4 !important;
+    color: #df4c6b !important;
+    border-color: #f696aa !important;
+    cursor:pointer;
+  }
+
+  .searchresult > * {
+    border-color: #f696aa !important;
+    font-family : "Poppins", sans-serif !important;
+  }
+
+
+
+
+

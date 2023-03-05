@@ -77,6 +77,10 @@
     text-align: right;
 }
 
+.nav-menu-container *{
+    font-weight: bold;
+}
+
 
 /* 푸터 */
 .footer {
@@ -87,6 +91,7 @@
 
 .footer > .footer_box {
     display:flex;
+    padding-left:25%;
 }
 
 .footer > .footer_box > .in_footer{
@@ -130,6 +135,14 @@
 .footer > .footer_box > .sns .sns_box img{
     height: 35px;
     width: 35px;
+}
+
+.footer_box{
+    background-size: cover;
+    background-image: url("/img/main_footer_back.jpg");
+    background-position: 100%;
+    background-repeat : no-repeat;
+    background-color: rgba( 255, 255, 255, 0.5 );
 }
 
 

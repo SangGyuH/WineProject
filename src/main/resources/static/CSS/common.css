@@ -37,10 +37,6 @@ a {
     text-align:center;
 }
 
-#headercontainer{
-    /*background-color:#530031;*/
-    background-color:white;
-}
 
 #nav-ul{
     opacity:90%;
@@ -50,4 +46,14 @@ a {
     color:black;
     font-weight:400;
     font-size:12px;
+}
+
+#header {
+    background-size: cover;
+    background-image: url("/img/main_back.jpg");
+    background-position: 100%;
+    background-repeat : no-repeat;
+}
+#header.header-scrolled .nav-menu, #header.header-scrolled #nav-menu-container a, #header.header-scrolled .nav-menu span {
+    color: #fff;
 }

@@ -30,8 +30,10 @@
     <script th:src="@{/js/vvineFunc/parallax.min.js}"></script>
     <script th:src="@{/js/vvineFunc/mail-script.js}"></script>
     <script th:src="@{/js/vvineFunc/main.js}"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-element-bundle.min.js"></script>
 
-
+    <link rel="stylesheet" th:href="@{/css/vvine.css}">
     <title>VVINE</title>
 
 </head>
@@ -42,8 +44,19 @@
         <th:block th:insert="~{common/header::header}"></th:block>
     </header>
     <article>
-        <div id="article">
-            <img src="img/pexels-photomix-company-95960.jpg" width="1140px" height="650px" alt="">
+        <div class="article">
+            <swiper-container class="mySwiper" pagination="false" pagination-clickable="true" navigation="true" space-between="30"
+                              centered-slides="true" autoplay-delay="5000" autoplay-disable-on-interaction="false">
+                <swiper-slide><img src="/img/mainpic1.jpg" alt=""></swiper-slide>
+                <swiper-slide><img src="/img/mainpic2.png" alt=""></swiper-slide>
+                <swiper-slide><img src="/img/mainpic3.jpg" alt=""></swiper-slide>
+                <swiper-slide><img src="/img/mainpic4.jpg" alt=""></swiper-slide>
+                <swiper-slide><img src="/img/mainpic5.jpg" alt=""></swiper-slide>
+                <swiper-slide><img src="/img/mainpic6.jpg" alt=""></swiper-slide>
+                <swiper-slide><img src="/img/mainpic7.jpg" alt=""></swiper-slide>
+                <swiper-slide><img src="/img/mainpic8.jpg" alt=""></swiper-slide>
+                <swiper-slide><img src="/img/mainpic9.jpg" alt=""></swiper-slide>
+            </swiper-container>
         </div>
     </article>
     <footer>

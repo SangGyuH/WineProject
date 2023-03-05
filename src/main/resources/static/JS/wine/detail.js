@@ -10,10 +10,10 @@ const $wine_name = $('#wine>#info>span:nth-child(1)').html();
 const $stockPrice = $('#window>#wine>#stock>div:nth-child(2)>span').html();
 
 $(function(){
-    console.log("sjehrmfo?");
+//    console.log("sjehrmfo?");
     const moneyFormat = function(m){
         // if(m){
-            let money = m.toString();
+            let money = m+'';
             let result = "";
             let first = money.length % 3;
             for(i = 0; i < first; i++){
@@ -30,6 +30,7 @@ $(function(){
                     count = 0;
                 }
             }
+
             return result;
         // }
     }
