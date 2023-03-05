@@ -13,6 +13,6 @@ public interface AuthorityRepository {
     List<Authority> findByUser(User user);
 
     //특정 사용자(user_uid)에게 권한(authority_id) 추가
-//    int addAuthority(Long user_uid, Long authority_id);
+    int addAuthority(Long user_uid, Long authority_id);
 }
 

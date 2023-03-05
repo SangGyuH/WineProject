@@ -101,10 +101,10 @@ public class UserController {
 //        User user = Util.getLoggedUser();
         Long user_uid = (Long) request.getSession().getAttribute("user_uid");
         User user = userService.findById(user_uid);
-        System.out.println("####################### user_uid ##" + user_uid);
+        user.setUser_point((user.getUser_point() == null)? "0" : user.getUser_point());
         model.addAttribute("user", user);
-        model.addAttribute("authorities", user);
-        System.out.println("##### user:" + user);
+//        model.addAttribute("authorities", user);
+//        System.out.println("##### user:" + user);
     }
 
     @GetMapping("/changeInfo")
