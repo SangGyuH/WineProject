@@ -22,8 +22,8 @@
     </select>
 
     <insert id="addAuthority" flushCache="true">
-        INSERT INTO tb_user_authorities
-        VALUES (#{authority_id}, #{user_uid})
+        INSERT INTO tb_user_authorities (authority_id, user_uid)
+        VALUES (#{param2}, #{param1})
     </insert>
 
 </mapper>
