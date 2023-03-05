@@ -209,9 +209,6 @@ CREATE TABLE tb_wine_review
 	PRIMARY KEY (wnrv_id)
 );
 
-ALTER TABLE tb_wine_review DROP FOREIGN KEY tb_wine_review_ibfk_2;
-ALTER TABLE tb_wine_review DROP FOREIGN KEY tb_wine_review_ibfk_4;
-ALTER TABLE tb_wine_review DROP COLUMN wine_id;
 ALTER TABLE tb_wine_review MODIFY COLUMN wnrv_content longtext CHARACTER SET utf8 NULL;
 ALTER TABLE tb_wine_review MODIFY COLUMN wnrv_reviews int DEFAULT 1 NOT NULL;
 ALTER TABLE tb_wine_review ADD COLUMN wine_serialkey int(4) NOT NULL;
