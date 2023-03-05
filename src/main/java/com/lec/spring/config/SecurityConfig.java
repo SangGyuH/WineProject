@@ -16,7 +16,6 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder encoder(){
-        System.out.println("### LOG: PasswordEncoder bean 생성 ###");
         return new BCryptPasswordEncoder();
     }
 

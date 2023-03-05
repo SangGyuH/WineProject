@@ -73,6 +73,12 @@ public class UserService {
         return result;
     }
 
+    public User findById(Long user_uid){
+        User user = userRepository.findById(user_uid);
+        return user;
+    }
+
+
     // 특정 사용자의 authority(들)
     public List<Authority> selectAuthoritiesById(Long id){      // 여기서 id는 user_uid
         User user = userRepository.findById(id);

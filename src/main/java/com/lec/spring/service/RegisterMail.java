@@ -46,7 +46,7 @@ public class RegisterMail implements MailServiceInter {
         msgg += "</div>";
         message.setText(msgg, "utf-8", "html");// 내용, charset 타입, subtype
         // 보내는 사람의 이메일 주소, 보내는 사람 이름
-        message.setFrom(new InternetAddress("@naver.com", "WineAdmin"));// 보내는 사람
+        message.setFrom(new InternetAddress("dkfjrorofk@naver.com", "WineAdmin"));// 보내는 사람
 
         return message;
     }
@@ -57,7 +57,7 @@ public class RegisterMail implements MailServiceInter {
         StringBuffer key = new StringBuffer();
         Random rnd = new Random();
 
-        for (int i = 0; i < 6; i++) { // 인증코드 6자리
+        for (int i = 0; i < 6; i++) {
             key.append((rnd.nextInt(10)));
         }
         return key.toString();

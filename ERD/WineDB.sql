@@ -212,7 +212,9 @@ ALTER TABLE tb_write_review
 ALTER TABLE tb_wine ADD COLUMN wine_count int(3) NOT NULL;
 ALTER TABLE tb_wine ADD COLUMN wine_serialkey int(4) NOT NULL;
 
-<<<<<<< HEAD
+ALTER TABLE tb_wine_review DROP FOREIGN KEY tb_wine_review_ibfk_1;
+ALTER TABLE tb_wine_review DROP FOREIGN KEY tb_wine_review_ibfk_4;
+ALTER TABLE tb_wine_review DROP COLUMN wine_id;
 
 DROP TABLE IF EXISTS tb_wine_review;
 CREATE TABLE tb_wine_review
