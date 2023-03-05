@@ -58,8 +58,11 @@ public class UserService {
 
         // 사용자의 ID와 authority 아이디 꺼낸 후 넣기(회원가입까지 만들기 위함)
         Long user_id = user.getUser_uid();
-        System.out.println("\t*register : user_uid:" + user_id);
-        return authorityRepository.addAuthority(user_id, 2l);   //2: role_silver
+        System.out.println("user_uid:" + user_id);
+//        Long auth_id = auth.getAuthority_id();
+//        authorityRepository.addAuthority(user_id, auth_id);
+
+        return 1;
     }
 
     public int deleteById(String user_id){

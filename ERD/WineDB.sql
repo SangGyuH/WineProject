@@ -8,6 +8,7 @@ DROP TABLE IF EXISTS tb_buy;
 DROP TABLE IF EXISTS tb_notice_file;
 DROP TABLE IF EXISTS tb_notice;
 DROP TABLE IF EXISTS tb_point;
+DROP TABLE IF EXISTS tb_wine_review;
 DROP TABLE IF EXISTS tb_write_file;
 DROP TABLE IF EXISTS tb_write_review;
 DROP TABLE IF EXISTS tb_write;
@@ -104,6 +105,18 @@ CREATE TABLE tb_wine
 );
 
 
+CREATE TABLE tb_wine_review
+(
+	wnrv_id int NOT NULL AUTO_INCREMENT,
+	user_uid int NOT NULL,
+	wine_id int NOT NULL,
+	wnrv_content longtext NOT NULL,
+	wnrv_regdate datetime DEFAULT now(),
+	wnrv_reviews int DEFAULT 0,
+	PRIMARY KEY (wnrv_id)
+);
+
+
 CREATE TABLE tb_write
 (
 	write_id int NOT NULL AUTO_INCREMENT,
@@ -172,6 +185,8 @@ ALTER TABLE tb_point
 
 
 ALTER TABLE tb_wine_review
+	ADD FOREIGN KEY (wine_id)
+	REFERENCES tb_wine (wine_id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
@@ -197,6 +212,7 @@ ALTER TABLE tb_write_review
 ALTER TABLE tb_wine ADD COLUMN wine_count int(3) NOT NULL;
 ALTER TABLE tb_wine ADD COLUMN wine_serialkey int(4) NOT NULL;
 
+<<<<<<< HEAD
 
 DROP TABLE IF EXISTS tb_wine_review;
 CREATE TABLE tb_wine_review
@@ -209,6 +225,11 @@ CREATE TABLE tb_wine_review
 	PRIMARY KEY (wnrv_id)
 );
 
+=======
+ALTER TABLE tb_wine_review DROP FOREIGN KEY tb_wine_review_ibfk_2;
+ALTER TABLE tb_wine_review DROP FOREIGN KEY tb_wine_review_ibfk_4;
+ALTER TABLE tb_wine_review DROP COLUMN wine_id;
+>>>>>>> parent of 1abb08e (포인트 및 기타 수정)
 ALTER TABLE tb_wine_review MODIFY COLUMN wnrv_content longtext CHARACTER SET utf8 NULL;
 ALTER TABLE tb_wine_review MODIFY COLUMN wnrv_reviews int DEFAULT 1 NOT NULL;
 ALTER TABLE tb_wine_review ADD COLUMN wine_serialkey int(4) NOT NULL;
