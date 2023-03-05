@@ -302,7 +302,7 @@ body>div#buyPopup>div:nth-child(1){
 body>div#buyPopup>div:nth-child(1)>img{
     display: block;
     margin: 60px auto;
-    width: 85%;
+    max-width: 85%;
 }
 body>div#buyPopup>div:nth-child(2)>span{
     display: block;
