@@ -7,7 +7,7 @@ $("#checkEmail").click(function() {
       data : {
          "email" : $("#memail").val(),
       },
-      success : function(data){ //code
+      success : function(data){
          alert("해당 이메일로 인증번호 발송이 완료되었습니다.")
          console.log("data : " + data);
          chkEmailConfirm(data, memailconfirm, memailconfirmTxt);

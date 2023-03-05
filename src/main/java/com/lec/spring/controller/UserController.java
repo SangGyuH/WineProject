@@ -6,6 +6,7 @@ import com.lec.spring.domain.Wine;
 import com.lec.spring.service.UserService;
 import com.lec.spring.service.PurchaseService;
 import com.lec.spring.util.Util;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -94,8 +95,13 @@ public class UserController {
     }
 
     @GetMapping("/mypage")
-    public void mypage(Model model){
-        User user = Util.getLoggedUser();
+    public void mypage(HttpServletRequest request
+            , Model model
+    ){
+//        User user = Util.getLoggedUser();
+        Long user_uid = (Long) request.getSession().getAttribute("user_uid");
+        User user = userService.findById(user_uid);
+        System.out.println("####################### user_uid ##" + user_uid);
         model.addAttribute("user", user);
         model.addAttribute("authorities", user);
         System.out.println("##### user:" + user);
@@ -104,7 +110,6 @@ public class UserController {
     @GetMapping("/changeInfo")
     public void changeInfo(Model model){
         User user = Util.getLoggedUser();
-        // db에서 읽어오기
         User user2 = userService.findByUsername(user.getUser_id());
         model.addAttribute("user", user2);
     }
@@ -161,7 +166,6 @@ public class UserController {
 //     UserValidator 를 바인딩 검증하는 용도로 사용 등록
     @InitBinder
     public void initBinder(WebDataBinder binder){
-        System.out.println("initBinder() 호출");
         binder.setValidator(new UserValidator());
     }
 
